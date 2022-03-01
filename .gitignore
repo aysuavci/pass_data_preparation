@@ -6,6 +6,7 @@
 *.bib_*.utf8
 *.blg
 *.dvi
+*.dta
 *.ent
 *.fff
 *.fls
