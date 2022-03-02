@@ -1,88 +1,88 @@
-raw_name, new_name
-pnr, p_id
-hnr, h_id
-welle, wave
-pintjahr, survey_year
-pintmon, survey_mon
-zpsex, sex
-palter, age
-PD0400
-PA0100
-PA0300
-PA0800
-PA0900
-PA1000
-PSM0100
-PEO0300a
-PEO0300b
-PEO0300c
-PEO0300d
-PEO0300e
-PEO0400a
-PEO0400b
-PEO0400c
-PEO0400d
-PEO0800a
-PEO0800b
-PEO0900a
-PEO0900b
-PEO1000a
-PEO1000b
-PEO1100a
-PEO1100b
-PEO1700a
-PEO1700b
-PEO1700c
-PEO1700d
-PEO1700e
-PEO1700f
-PEO1400a
-PEO1400b
-PEO1400c
-PEO1400d
-PEO1400e
-PEO1400f
-PEO1400g
-PEO1400h
-PEO1400i
-PEO1400j
-PEO1400k
-PEO1400l
-PEO1400m
-PEO1400n
-PEO1400o
-PEO1400p
-PEO1400q
-PEO1400r
-PEO1400s
-PEO1400t
-PEO1400u
-PQB1100
-PQB0600a
-PQB0600b
-PQB0600c
-PQB0600d
-PQB0600e
-PQB0600f
-PQB0600g
-PQB0600h
-PQB0600i
-PQB0600j
-PQB0600k
-PQB0600l
-PSK0100
-PSK0200
-PG0100
-PG1200
-ekind
-schul2
-beruf2
-casmin
-netges
-brges
-azges1
-etakt
-alakt
-isei1
-isei2
-migration
+raw_name;labels;new_name;type;ordered;categories
+pnr;Unveraenderliche Personennummer;;;;
+hnr;Haushaltsnummer (aktuell);;;;
+welle;Indikator Befragungswelle;;;;
+pintjahr;Interviewdatum Personeninterview - Jahr, generiert;;;;
+pintmon;Interviewdatum Personeninterview - Monat, generiert;;;;
+zpsex;Steuervariable: Geschlecht des Befragten (aus HHgrid);;;;
+palter;"Alter (Welle 1: gen. aus P1; ab Welle 2: beste Inf.), generiert";;;;
+PD0400;Religiositaet, Selbsteinstufung;;;;
+PA0100;Zufriedenheit mit der Gesundheit;;;;
+PA0300;Zufriedenheit mit dem Lebensstandard;;;;
+PA0800;Soziale Teilhabe;;;;
+PA0900;Soziale Position: Oben-Unten-Skala;;;;
+PA1000;Generelle Lebenszufriedenheit;;;;
+PSM0100;Nutzung von sozialen Netzwerken?;;;;
+PEO0300a;Wichtig bei Beruf: Viel Geld verdienen;;;;
+PEO0300b;Wichtig bei Beruf: Ein Beruf, der Spass macht;;;;
+PEO0300c;Wichtig bei Beruf: Gute Aufstiegsmoeglichkeiten;;;;
+PEO0300d;Wichtig bei Beruf: Ein sicherer Arbeitsplatz;;;;
+PEO0300e;Wichtig bei Beruf: Ein Beruf, bei dem man seine Faehigkeiten zeigen kann;;;;
+PEO0400a;Familie/Beruf: Frau sollte bereit, Arbeitszeit wegen Familie zu verringern;;;;
+PEO0400b;Familie/Beruf: Was Frauen wirklich wollen, sind ein Heim und Kinder;;;;
+PEO0400c;Familie/Beruf: Berufst. Mutter kann genauso herzl. Verhaeltn. zu Kindern haben ;;;;
+PEO0400d;Familie/Beruf: Aufgabe Ehemann: Geld verdienen, Aufgabe Ehefrau: Haushalt/Fam.;;;;
+PEO0800a;Einst. regelmaessige Kinderbetreuung ab welchem Alter (Monate);;;;
+PEO0800b;Einst. regelmaessige Kinderbetreuung ab welchem Alter (Jahre);;;;
+PEO0900a;Einst. regelmaessige ganztaegige Kinderbetreuung ab welchem Alter (Monate);;;;
+PEO0900b;Einst. regelmaessige ganztaegige Kinderbetreuung ab welchem Alter (Jahre);;;;
+PEO1000a;Einst. Erwerbstaetigkeit (>15h) der Mutter ab welchem Alter (Monate);;;;
+PEO1000b;Einst. Erwerbstaetigkeit (>15h) der Mutter ab welchem Alter (Jahre);;;;
+PEO1100a;Einst. Erwerbstaetigkeit (>30h) der Mutter ab welchem Alter (Monate);;;;
+PEO1100b;Einst. Erwerbstaetigkeit (>30h) der Mutter ab welchem Alter (Jahre);;;;
+PEO1700a;Einst. Kinderbetreuung: Groesserer Lerneffekt in Kita als zu Hause;;;;
+PEO1700b;Einst. Kinderbetreuung: Ueberforderung in Kita;;;;
+PEO1700c;Einst. Kinderbetreu.: Kita kuemmert sich um vieles, wozu Eltern keine Zeit haben;;;;
+PEO1700d;Einst. Kinderbetreuung: Zu viel Streit in Kita;;;;
+PEO1700e;Einst. Kinderbetreuung: Kita nur als Notloesung;;;;
+PEO1700f;Einst. Kinderbetreuung: Kita-Kinder haben es spaeter leichter;;;;
+PEO1400a;B5 Extraversion (neg.): Ich bin eher zurueckhaltend, reserviert;;;;
+PEO1400b;B5 Vertraeglichkeit (neg.): Ich neige dazu, andere zu kritisieren;;;;
+PEO1400c;B5 Gewissenhaftigkeit: Ich erledige Aufgaben gruendlich;;;;
+PEO1400d;B5 Neurotizismus: Ich werde leicht deprimiert, niedergeschlagen;;;;
+PEO1400e;B5 Offenheit fuer Erfahrungen: Ich bin vielseitig interessiert;;;;
+PEO1400f;B5 Extraversion:  Ich bin begeisterungsfaehig und kann andere leicht mitreissen;;;;
+PEO1400g;B5 Vertraegl.: Ich schenke anderen leicht Vertr., glaube an das Gute im Menschen;;;;
+PEO1400h;B5 Gewissenhaftigkeit (neg.): Ich bin bequem, neige zur Faulheit;;;;
+PEO1400i;B5 Neurotiz. (neg.): Bin entsp., lasse mich d. Stress nicht a. d. Ruhe bringen;;;;
+PEO1400j;B5 Offenheit f. Erfahrungen: Ich bin tiefsinnig, denke gerne ueber Sachen nach;;;;
+PEO1400k;B5 Extraversion (neg.): Ich bin eher der stille Typ, wortkarg;;;;
+PEO1400l;B5 Vertraeglichkeit (neg.): Ich kann mich kalt und distanziert verhalten;;;;
+PEO1400m;B5 Gewissenhaftigkeit: Ich bin tuechtig und arbeite flott;;;;
+PEO1400n;B5 Neurotizismus: Ich mache mir viele Sorgen;;;;
+PEO1400o;B5 Offenheit f. Erf.: Ich habe eine aktive Vorstellungskraft, bin phantasievoll;;;;
+PEO1400p;B5 Extraversion: Ich gehe aus mir heraus, bin gesellig;;;;
+PEO1400q;B5 Vertraegl. (neg.): Kann mich schroff und abweis. anderen gegenueber verhalten;;;;
+PEO1400r;B5 Gewissenhaftigkeit: Ich mache Plaene und fuehre sie auch durch;;;;
+PEO1400s;B5 Neurotizismus: Ich werde leicht nervoes und unsicher;;;;
+PEO1400t;B5 Offenheit f. Erf.: Ich schaetze kuenstlerische und aesthetische Eindruecke;;;;
+PEO1400u;B5 Offenheit f. Erfahrungen (neg.): Ich habe nur wenig kuenstlerisches Interesse;;;;
+PQB1100;Zufriedenheit mit Gehalt bzw. Lohn;;;;
+PQB0600a;Chancen/Belastungen im Job: haeufig grosser Zeitdruck;;;;
+PQB0600b;Chancen/Belastungen im Job: haeufig unterbrochen und gestoert;;;;
+PQB0600c;Chancen/Belastungen im Job: Arbeit mehr geworden i.d. letzten 2 Jahren;;;;
+PQB0600d;Chancen/Belastungen im Job: erhalte verdiente Anerkennung von Vorgesetztem;;;;
+PQB0600e;Chancen/Belastungen im Job: schlechte Aufstiegsschancen im Betrieb;;;;
+PQB0600f;Chancen/Belastungen im Job: schlechtere Arbeitssituation erfahren/erwartet;;;;
+PQB0600g;Chancen/Belastungen im Job: eigener Arbeitsplatz gefaehrdet;;;;
+PQB0600h;Chancen/Belastungen im Job: erfahrene Anerkennung ist angemessen;;;;
+PQB0600i;Chancen/Belastungen im Job: Chancen f. berufl. Fortkommen sind angemessen;;;;
+PQB0600j;Chancen/Belastungen im Job: Gehalt/Lohn ist angemessen;;;;
+PQB0600k;Chancen/Belastungen im Job: haeufig Aerger/Konflikte mit Vorgesetzten;;;;
+PQB0600l;Chancen/Belastungen im Job: komme gut mit Arbeitskollegen aus;;;;
+PSK0100;Indikator: Enge Freunde/Familienmitglieder ausserhalb des HH?;;;;
+PSK0200;Anzahl enge Freunde/Familienmitglieder ausserhalb des HH;;;;
+PG0100;Anzahl Arztbesuche, letzten 3 Monate;;;;
+PG1200;Subjektive Beurteilung Gesundheitszustand;;;;
+ekind;Steuervariable: Eigenes Kind im HH;;;;
+schul2;Hoechster Schulabschluss, mit ausl. Abschl. und offenen Angaben;;;;
+beruf2;Hoechster beruflicher Abschluss, mit ausl. Abschl. und off. Angaben, generiert;;;;
+casmin;Bildung, klassifiziert nach CASMIN, aktual. Version, generiert;;;;
+netges;Akt. Nettoeinkommen insgesamt (ohne Minijobs, inkl. kat. Ang.), gen.;;;;
+brges;Akt. Bruttoeinkommen insgesamt (ohne Minijobs, inkl. kat. Ang.), gen.;;;;
+azges1;Akt. vertragl. Arb.zeit insgesamt (ohne Minijobs), gen.;;;;
+etakt;Aktuell erwerbstaetig (>400/450 Euro pro Monat), generiert (ab Welle 2);;;;
+alakt;Aktuell arbeitslos gemeldet, generiert (ab Welle 2);;;;
+isei1;International Socio-Economic Index (Basis ISCO88), aktuelle Ewt., gen.;;;;
+isei2;International Socio-Economic Index (Basis ISCO08), aktuelle Ewt., gen.;;;;
+migration;Migrationshintergrund d. Befragten, generiert;;;;
