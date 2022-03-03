@@ -1,88 +1,88 @@
-raw_name;labels;new_name;type;ordered;categories
-pnr;Unveraenderliche Personennummer;p_id;;;
-hnr;Haushaltsnummer (aktuell);hh_id;;;
-welle;Indikator Befragungswelle;wave;;;
-pintjahr;Interviewdatum Personeninterview - Jahr, generiert;survey_year;;;
-pintmon;Interviewdatum Personeninterview - Monat, generiert;survey_mon;;;
-zpsex;Steuervariable: Geschlecht des Befragten (aus HHgrid);sex;;;
-palter;"Alter (Welle 1: gen. aus P1; ab Welle 2: beste Inf.), generiert";age;;;
-PD0400;Religiositaet, Selbsteinstufung;religiosity;;;
-PA0100;Zufriedenheit mit der Gesundheit;;;;
-PA0300;Zufriedenheit mit dem Lebensstandard;;;;
-PA0800;Soziale Teilhabe;;;;
-PA0900;Soziale Position: Oben-Unten-Skala;;;;
-PA1000;Generelle Lebenszufriedenheit;;;;
-PSM0100;Nutzung von sozialen Netzwerken?;;;;
-PEO0300a;Wichtig bei Beruf: Viel Geld verdienen;;;;
-PEO0300b;Wichtig bei Beruf: Ein Beruf, der Spass macht;;;;
-PEO0300c;Wichtig bei Beruf: Gute Aufstiegsmoeglichkeiten;;;;
-PEO0300d;Wichtig bei Beruf: Ein sicherer Arbeitsplatz;;;;
-PEO0300e;Wichtig bei Beruf: Ein Beruf, bei dem man seine Faehigkeiten zeigen kann;;;;
-PEO0400a;Familie/Beruf: Frau sollte bereit, Arbeitszeit wegen Familie zu verringern;;;;
-PEO0400b;Familie/Beruf: Was Frauen wirklich wollen, sind ein Heim und Kinder;;;;
-PEO0400c;Familie/Beruf: Berufst. Mutter kann genauso herzl. Verhaeltn. zu Kindern haben ;;;;
-PEO0400d;Familie/Beruf: Aufgabe Ehemann: Geld verdienen, Aufgabe Ehefrau: Haushalt/Fam.;;;;
-PEO0800a;Einst. regelmaessige Kinderbetreuung ab welchem Alter (Monate);;;;
-PEO0800b;Einst. regelmaessige Kinderbetreuung ab welchem Alter (Jahre);;;;
-PEO0900a;Einst. regelmaessige ganztaegige Kinderbetreuung ab welchem Alter (Monate);;;;
-PEO0900b;Einst. regelmaessige ganztaegige Kinderbetreuung ab welchem Alter (Jahre);;;;
-PEO1000a;Einst. Erwerbstaetigkeit (>15h) der Mutter ab welchem Alter (Monate);;;;
-PEO1000b;Einst. Erwerbstaetigkeit (>15h) der Mutter ab welchem Alter (Jahre);;;;
-PEO1100a;Einst. Erwerbstaetigkeit (>30h) der Mutter ab welchem Alter (Monate);;;;
-PEO1100b;Einst. Erwerbstaetigkeit (>30h) der Mutter ab welchem Alter (Jahre);;;;
-PEO1700a;Einst. Kinderbetreuung: Groesserer Lerneffekt in Kita als zu Hause;;;;
-PEO1700b;Einst. Kinderbetreuung: Ueberforderung in Kita;;;;
-PEO1700c;Einst. Kinderbetreu.: Kita kuemmert sich um vieles, wozu Eltern keine Zeit haben;;;;
-PEO1700d;Einst. Kinderbetreuung: Zu viel Streit in Kita;;;;
-PEO1700e;Einst. Kinderbetreuung: Kita nur als Notloesung;;;;
-PEO1700f;Einst. Kinderbetreuung: Kita-Kinder haben es spaeter leichter;;;;
-PEO1400a;B5 Extraversion (neg.): Ich bin eher zurueckhaltend, reserviert;b5_ext_n_a;;;
-PEO1400b;B5 Vertraeglichkeit (neg.): Ich neige dazu, andere zu kritisieren;b5_agree_n_a;;;
-PEO1400c;B5 Gewissenhaftigkeit: Ich erledige Aufgaben gruendlich;b5_consc_a;;;
-PEO1400d;B5 Neurotizismus: Ich werde leicht deprimiert, niedergeschlagen;b5_neu_a;;;
-PEO1400e;B5 Offenheit fuer Erfahrungen: Ich bin vielseitig interessiert;b5_open_a;;;
-PEO1400f;B5 Extraversion:  Ich bin begeisterungsfaehig und kann andere leicht mitreissen;b5_ext_a;;;
-PEO1400g;B5 Vertraegl.: Ich schenke anderen leicht Vertr., glaube an das Gute im Menschen;b5_agree_a;;;
-PEO1400h;B5 Gewissenhaftigkeit (neg.): Ich bin bequem, neige zur Faulheit;b5_consc_n_a;;;
-PEO1400i;B5 Neurotiz. (neg.): Bin entsp., lasse mich d. Stress nicht a. d. Ruhe bringen;b5_neu_n_a;;;
-PEO1400j;B5 Offenheit f. Erfahrungen: Ich bin tiefsinnig, denke gerne ueber Sachen nach;b5_open_b;;;
-PEO1400k;B5 Extraversion (neg.): Ich bin eher der stille Typ, wortkarg;b5_ext_n_b;;;
-PEO1400l;B5 Vertraeglichkeit (neg.): Ich kann mich kalt und distanziert verhalten;b5_agree_n_b;;;
-PEO1400m;B5 Gewissenhaftigkeit: Ich bin tuechtig und arbeite flott;b5_consc_b;;;
-PEO1400n;B5 Neurotizismus: Ich mache mir viele Sorgen;b5_neu_b;;;
-PEO1400o;B5 Offenheit f. Erf.: Ich habe eine aktive Vorstellungskraft, bin phantasievoll;b5_open_c;;;
-PEO1400p;B5 Extraversion: Ich gehe aus mir heraus, bin gesellig;b5_ext_b;;;
-PEO1400q;B5 Vertraegl. (neg.): Kann mich schroff und abweis. anderen gegenueber verhalten;b5_agree_b;;;
-PEO1400r;B5 Gewissenhaftigkeit: Ich mache Plaene und fuehre sie auch durch;b5_consc_c;;;
-PEO1400s;B5 Neurotizismus: Ich werde leicht nervoes und unsicher;b5_neu_c;;;
-PEO1400t;B5 Offenheit f. Erf.: Ich schaetze kuenstlerische und aesthetische Eindruecke;b5_open_d;;;
-PEO1400u;B5 Offenheit f. Erfahrungen (neg.): Ich habe nur wenig kuenstlerisches Interesse;b5_open_n_a;;;
-PQB1100;Zufriedenheit mit Gehalt bzw. Lohn;;;;
-PQB0600a;Chancen/Belastungen im Job: haeufig grosser Zeitdruck;;;;
-PQB0600b;Chancen/Belastungen im Job: haeufig unterbrochen und gestoert;;;;
-PQB0600c;Chancen/Belastungen im Job: Arbeit mehr geworden i.d. letzten 2 Jahren;;;;
-PQB0600d;Chancen/Belastungen im Job: erhalte verdiente Anerkennung von Vorgesetztem;;;;
-PQB0600e;Chancen/Belastungen im Job: schlechte Aufstiegsschancen im Betrieb;;;;
-PQB0600f;Chancen/Belastungen im Job: schlechtere Arbeitssituation erfahren/erwartet;;;;
-PQB0600g;Chancen/Belastungen im Job: eigener Arbeitsplatz gefaehrdet;;;;
-PQB0600h;Chancen/Belastungen im Job: erfahrene Anerkennung ist angemessen;;;;
-PQB0600i;Chancen/Belastungen im Job: Chancen f. berufl. Fortkommen sind angemessen;;;;
-PQB0600j;Chancen/Belastungen im Job: Gehalt/Lohn ist angemessen;;;;
-PQB0600k;Chancen/Belastungen im Job: haeufig Aerger/Konflikte mit Vorgesetzten;;;;
-PQB0600l;Chancen/Belastungen im Job: komme gut mit Arbeitskollegen aus;;;;
-PSK0100;Indikator: Enge Freunde/Familienmitglieder ausserhalb des HH?;nonhh_friends;;;
-PSK0200;Anzahl enge Freunde/Familienmitglieder ausserhalb des HH;nonhh_friends_n;;;
-PG0100;Anzahl Arztbesuche, letzten 3 Monate;;;;
-PG1200;Subjektive Beurteilung Gesundheitszustand;;;;
-ekind;Steuervariable: Eigenes Kind im HH;own_child;;;
-schul2;Hoechster Schulabschluss, mit ausl. Abschl. und offenen Angaben;educ;;;
-beruf2;Hoechster beruflicher Abschluss, mit ausl. Abschl. und off. Angaben, generiert;job;;;
-casmin;Bildung, klassifiziert nach CASMIN, aktual. Version, generiert;educ_casmin;;;
-netges;Akt. Nettoeinkommen insgesamt (ohne Minijobs, inkl. kat. Ang.), gen.;net_income;;;
-brges;Akt. Bruttoeinkommen insgesamt (ohne Minijobs, inkl. kat. Ang.), gen.;gross_income;;;
-azges1;Akt. vertragl. Arb.zeit insgesamt (ohne Minijobs), gen.;job_hours;;;
-etakt;Aktuell erwerbstaetig (>400/450 Euro pro Monat), generiert (ab Welle 2);salary;;;
-alakt;Aktuell arbeitslos gemeldet, generiert (ab Welle 2);unemp;;;
-isei1;International Socio-Economic Index (Basis ISCO88), aktuelle Ewt., gen.;;;;
-isei2;International Socio-Economic Index (Basis ISCO08), aktuelle Ewt., gen.;;;;
-migration;Migrationshintergrund d. Befragten, generiert;;;;
+raw_name;;new_name
+pnr;;p_id
+hnr;;hh_id
+welle;;wave
+pintjahr;;survey_year
+pintmon;;survey_mon
+zpsex;;sex
+palter;;age
+PD0400;;religiosity
+PA0100;;
+PA0300;;
+PA0800;;
+PA0900;;
+PA1000;;
+PSM0100;;
+PEO0300a;;
+PEO0300b;;
+PEO0300c;;
+PEO0300d;;
+PEO0300e;;
+PEO0400a;;
+PEO0400b;;
+PEO0400c;;
+PEO0400d;;
+PEO0800a;;
+PEO0800b;;
+PEO0900a;;
+PEO0900b;;
+PEO1000a;;
+PEO1000b;;
+PEO1100a;;
+PEO1100b;;
+PEO1700a;;
+PEO1700b;;
+PEO1700c;;
+PEO1700d;;
+PEO1700e;;
+PEO1700f;;
+PEO1400a;;b5_ext_n_a
+PEO1400b;;b5_agree_n_a
+PEO1400c;;b5_consc_a
+PEO1400d;;b5_neu_a
+PEO1400e;;b5_open_a
+PEO1400f;;b5_ext_a
+PEO1400g;;b5_agree_a
+PEO1400h;;b5_consc_n_a
+PEO1400i;;b5_neu_n_a
+PEO1400j;;b5_open_b
+PEO1400k;;b5_ext_n_b
+PEO1400l;;b5_agree_n_b
+PEO1400m;;b5_consc_b
+PEO1400n;;b5_neu_b
+PEO1400o;;b5_open_c
+PEO1400p;;b5_ext_b
+PEO1400q;;b5_agree_b
+PEO1400r;;b5_consc_c
+PEO1400s;;b5_neu_c
+PEO1400t;;b5_open_d
+PEO1400u;;b5_open_n_a
+PQB1100;;
+PQB0600a;;
+PQB0600b;;
+PQB0600c;;
+PQB0600d;;
+PQB0600e;;
+PQB0600f;;
+PQB0600g;;
+PQB0600h;;
+PQB0600i;;
+PQB0600j;;
+PQB0600k;;
+PQB0600l;;
+PSK0100;;nonhh_friends
+PSK0200;;nonhh_friends_n
+PG0100;;
+PG1200;;
+ekind;;own_child
+schul2;;educ
+beruf2;;job
+casmin;;educ_casmin
+netges;;net_income
+brges;;gross_income
+azges1;;job_hours
+etakt;;salary
+alakt;;unemp
+isei1;;
+isei2;;
+migration;;
