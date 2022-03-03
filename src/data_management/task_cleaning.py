@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 import pytask
 
@@ -5,8 +6,7 @@ from src.config import BLD
 from src.config import SRC
 
 
-def p_renaming_columns(path):
-    df = pd.read_stata(path, convert_categoricals=False)  # read the dataset from path
+def p_renaming_columns(df):
     new_names = pd.read_csv(
         SRC / "data_management/PENDDAT/penddat_renaming.csv", sep=";"
     )["new_name"]
@@ -17,8 +17,18 @@ def p_renaming_columns(path):
     return df.rename(columns=renaming_dict)
 
 
+def p_replacing_negative(df, negatives=list(range(-1, -11, -1))):
+    for i in negatives:
+        df[df == i] = np.nan
+    return df
+
+
 @pytask.mark.depends_on(SRC / "original_data/PENDDAT_cf_W11.dta")
 @pytask.mark.produces(BLD / "p_clean.dta")
 def task_clean_penddat(depends_on, produces):
-    df = p_renaming_columns(depends_on)
+    df = pd.read_stata(depends_on, convert_categoricals=False)
+    df = p_renaming_columns(df)
+    df = p_replacing_negative(df).set_index(
+        ["p_id", "hh_id", "wave"]
+    )
     df.to_stata(produces)
