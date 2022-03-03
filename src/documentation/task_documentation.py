@@ -1,4 +1,4 @@
-import subprocess
+""" import subprocess
 from pathlib import Path
 
 import pytask
@@ -27,3 +27,4 @@ def task_build_documentation(builder, produces):
             BLD.joinpath("documentation").as_posix(),
         ]
     )
+ """
