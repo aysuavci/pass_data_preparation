@@ -70,7 +70,7 @@ def p_replacing_negative(data_set, negatives=None):
     return df """
 
 
-def p_clean_data(df, i, negatives=None):
+def clean_data(df, i, negatives=None):
     if negatives is None:
         negatives = list(range(-1, -11, -1))
 
@@ -85,23 +85,6 @@ def p_clean_data(df, i, negatives=None):
     for i in negatives:
         df[df == i] = np.nan
     return df
-
-
-# trial to make a global cleaning rather than data specific
-""" def _clean_data(data_set, negatives=list(range(-1, -11, -1))):
-    new_names = pd.read_csv(
-        SRC / f"data_management/{data_set}/{data_set}_renaming.csv", sep=";"
-    )["new_name"]
-    renaming_dict = dict(zip(df.columns, new_names))
-    renaming_dict = {
-        k: v for k, v in renaming_dict.items() if pd.notna(v)
-    }  # Deleting NA values
-    df = df.rename(columns=renaming_dict)
-    for i in negatives:
-        df[df == i] = np.nan
-    return df
-    for id in ["p_id", "hh_id", "wave"]:
-        if id in  """
 
 
 """ @pytask.mark.depends_on(SRC / "original_data/PENDDAT_cf_W11.dta")
@@ -123,7 +106,7 @@ def task_clean_penddat(depends_on, produces):
             str(Path(depends_on)) + f"/{i}_cf_W11.dta", convert_categoricals=False
         )
         if "p_id" in df.columns:
-            df = p_clean_data(df, i).set_index(["p_id", "hh_id", "wave"]).sort_index()
+            df = clean_data(df, i).set_index(["p_id", "hh_id", "wave"]).sort_index()
         else:
-            df = p_clean_data(df, i).set_index(["hh_id", "wave"]).sort_index()
+            df = clean_data(df, i).set_index(["hh_id", "wave"]).sort_index()
         df.to_pickle(str(Path(produces)) + f"/{i}_clean.pickle")
