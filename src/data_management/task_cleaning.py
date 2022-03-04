@@ -1,4 +1,5 @@
 import glob
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -47,13 +48,30 @@ def p_replacing_negative(data_set, negatives=None):
     return data_set
 
 
-def p_clean_data(df, negatives=None):
+""" def p_clean_data(df, negatives=None):
     if negatives is None:
         negatives = list(range(-1, -11, -1))
 
     new_names = pd.read_csv(
         SRC / "data_management/PENDDAT/penddat_renaming.csv", sep=";"
     )["new_name"]
+    renaming_dict = dict(zip(df.columns, new_names))
+    renaming_dict = {
+        k: v for k, v in renaming_dict.items() if pd.notna(v)
+    }  # Deleting NA values
+    df = df.rename(columns=renaming_dict)
+    for i in negatives:
+        df[df == i] = np.nan
+    return df """
+
+
+def p_clean_data(df, i, negatives=None):
+    if negatives is None:
+        negatives = list(range(-1, -11, -1))
+
+    new_names = pd.read_csv(SRC / f"data_management/{i}/{i}_renaming.csv", sep=";")[
+        "new_name"
+    ]
     renaming_dict = dict(zip(df.columns, new_names))
     renaming_dict = {
         k: v for k, v in renaming_dict.items() if pd.notna(v)
@@ -81,11 +99,26 @@ def p_clean_data(df, negatives=None):
         if id in  """
 
 
-@pytask.mark.depends_on(SRC / "original_data/PENDDAT_cf_W11.dta")
+""" @pytask.mark.depends_on(SRC / "original_data/PENDDAT_cf_W11.dta")
 @pytask.mark.produces(BLD / "p_clean.pickle")
 def task_clean_penddat(depends_on, produces):
     df = pd.read_stata(depends_on, convert_categoricals=False)
     # df = p_renaming_columns(df)
     # df = p_replacing_negative(df).set_index(["p_id", "hh_id", "wave"])
     df = p_clean_data(df).set_index(["p_id", "hh_id", "wave"]).sort_index()
-    df.to_pickle(produces)
+    df.to_pickle(produces) """
+
+
+@pytask.mark.depends_on(SRC / "original_data")
+@pytask.mark.produces(BLD)
+def task_clean_penddat(depends_on, produces):
+    names = get_names_dataset()
+    for i in names:
+        df = pd.read_stata(
+            str(Path(depends_on)) + f"/{i}_cf_W11.dta", convert_categoricals=False
+        )
+        if "p_id" in df.columns:
+            df = p_clean_data(df, i).set_index(["p_id", "hh_id", "wave"]).sort_index()
+        else:
+            df = p_clean_data(df, i).set_index(["hh_id", "wave"]).sort_index()
+        df.to_pickle(str(Path(produces)) + f"/{i}_clean.pickle")
