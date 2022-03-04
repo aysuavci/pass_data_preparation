@@ -1,5 +1,6 @@
 import glob
 from pathlib import Path
+from sys import platform
 
 import numpy as np
 import pandas as pd
@@ -9,22 +10,26 @@ from src.config import BLD
 from src.config import SRC
 
 
-def get_names_dataset(
-    path=r"C:\Project\EPP_project\pass_data_preparation\src\original_data",
-):
-    a = r"\*"
-    files = list(glob.glob(path + f"{a}"))
+def get_names_dataset(path=SRC / "original_data"):
+    if platform == "win32":
+        a = r"\*"
+        b = "\\"
+    elif platform == "darwin":
+        a = r"/*"
+        b = "//"
+
+    files = list(glob.glob(str(path) + f"{a}"))
     # [file for file in glob.glob(path + f"\*")]
     name = []
     for i in range(len(files)):
-        if any(x.isupper() for x in files[i].split("\\")[6].split("_")[0]):
-            name.append(files[i].split("\\")[6].split("_")[0])
+        if any(x.isupper() for x in files[i].split(f"{b}")[6].split("_")[0]):
+            name.append(files[i].split(f"{b}")[6].split("_")[0])
         else:
             # a = files[i].split("\\")[6].split("_")[0:2]
             name.append(
-                files[i].split("\\")[6].split("_")[0]
+                files[i].split(f"{b}")[6].split("_")[0]
                 + "_"
-                + files[i].split("\\")[6].split("_")[1]
+                + files[i].split(f"{b}")[6].split("_")[1]
             )
     return name
 
