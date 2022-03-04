@@ -1,9 +1,31 @@
+import glob
+
 import numpy as np
 import pandas as pd
 import pytask
 
 from src.config import BLD
 from src.config import SRC
+
+
+def get_names_dataset(
+    path=r"C:\Project\EPP_project\pass_data_preparation\src\original_data",
+):
+    a = r"\*"
+    files = list(glob.glob(path + f"{a}"))
+    # [file for file in glob.glob(path + f"\*")]
+    name = []
+    for i in range(len(files)):
+        if any(x.isupper() for x in files[i].split("\\")[6].split("_")[0]):
+            name.append(files[i].split("\\")[6].split("_")[0])
+        else:
+            # a = files[i].split("\\")[6].split("_")[0:2]
+            name.append(
+                files[i].split("\\")[6].split("_")[0]
+                + "_"
+                + files[i].split("\\")[6].split("_")[1]
+            )
+    return name
 
 
 def p_renaming_columns(df):
@@ -17,13 +39,18 @@ def p_renaming_columns(df):
     return df.rename(columns=renaming_dict)
 
 
-def p_replacing_negative(data_set, negatives=list(range(-1, -11, -1))):
+def p_replacing_negative(data_set, negatives=None):
+    if negatives is None:
+        negatives = list(range(-1, -11, -1))
     for i in negatives:
         data_set[data_set == i] = np.nan
     return data_set
 
 
-def p_clean_data(df, negatives=list(range(-1, -11, -1))):
+def p_clean_data(df, negatives=None):
+    if negatives is None:
+        negatives = list(range(-1, -11, -1))
+
     new_names = pd.read_csv(
         SRC / "data_management/PENDDAT/penddat_renaming.csv", sep=";"
     )["new_name"]
