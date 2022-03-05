@@ -97,9 +97,30 @@ def task_clean_penddat(depends_on, produces):
     df.to_pickle(produces) """
 
 
+def reverse_code_big5(df):
+    for i in df:
+        if (f"{i}" in df.filter(regex="_neg")) is True:
+            new_column_name = i.replace("_neg", "")
+            df[new_column_name] = (
+                6 - df[i]
+            )  # Subtrack 6 to reverse code(6-1(lowest)=5(highest))
+    return df
+
+
+def average_big5(df):
+    facets = ["ext", "agree", "consc", "neu", "open"]
+    for i in facets:
+        df[f"b5_{i}"] = (
+            df[df.columns.drop(list(df.filter(regex="_neg")))]
+            .filter(regex=f"b5_{i}")
+            .mean(axis=1)
+        )
+    return df
+
+
 @pytask.mark.depends_on(SRC / "original_data")
 @pytask.mark.produces(BLD)
-def task_clean_penddat(depends_on, produces):
+def task_cleaning(depends_on, produces):
     names = get_names_dataset()
     for i in names:
         df = pd.read_stata(
@@ -107,6 +128,19 @@ def task_clean_penddat(depends_on, produces):
         )
         if "p_id" in df.columns:
             df = clean_data(df, i).set_index(["p_id", "hh_id", "wave"]).sort_index()
+            df = reverse_code_big5(df)
+            df = average_big5(df)
         else:
             df = clean_data(df, i).set_index(["hh_id", "wave"]).sort_index()
         df.to_pickle(str(Path(produces)) + f"/{i}_clean.pickle")
+
+
+""" @pytask.mark.try_last
+@pytask.mark.depends_on(BLD / "PENDDAT_clean.pickle")
+@pytask.mark.produces(BLD)
+def task_scaling(depends_on, produces):
+    df=pd.read_pickle(depends_on) #read the clean data
+    df=reverse_code_big5(df)
+    df=average_big5(df)
+    df.to_pickle(produces / "PENDDAT_clean.pickle")
+ """
