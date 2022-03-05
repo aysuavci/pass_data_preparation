@@ -70,8 +70,8 @@ PQB0600i;Chancen/Belastungen im Job: Chancen f. berufl. Fortkommen sind angemess
 PQB0600j;Chancen/Belastungen im Job: Gehalt/Lohn ist angemessen;
 PQB0600k;Chancen/Belastungen im Job: haeufig Aerger/Konflikte mit Vorgesetzten;
 PQB0600l;Chancen/Belastungen im Job: komme gut mit Arbeitskollegen aus;
-PSK0100;Indikator: Enge Freunde/Familienmitglieder ausserhalb des HH?;nonhh_friends
-PSK0200;Anzahl enge Freunde/Familienmitglieder ausserhalb des HH;nonhh_friends_n
+PSK0100;Indikator: Enge Freunde/Familienmitglieder ausserhalb des HH?;
+PSK0200;Anzahl enge Freunde/Familienmitglieder ausserhalb des HH;
 PG0100;Anzahl Arztbesuche, letzten 3 Monate;
 PG1200;Subjektive Beurteilung Gesundheitszustand;
 ekind;Steuervariable: Eigenes Kind im HH;own_child
