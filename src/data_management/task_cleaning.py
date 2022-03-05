@@ -87,16 +87,6 @@ def clean_data(df, i, negatives=None):
     return df
 
 
-""" @pytask.mark.depends_on(SRC / "original_data/PENDDAT_cf_W11.dta")
-@pytask.mark.produces(BLD / "p_clean.pickle")
-def task_clean_penddat(depends_on, produces):
-    df = pd.read_stata(depends_on, convert_categoricals=False)
-    # df = p_renaming_columns(df)
-    # df = p_replacing_negative(df).set_index(["p_id", "hh_id", "wave"])
-    df = p_clean_data(df).set_index(["p_id", "hh_id", "wave"]).sort_index()
-    df.to_pickle(produces) """
-
-
 def reverse_code_big5(df):
     for i in df:
         if (f"{i}" in df.filter(regex="_neg")) is True:
@@ -128,19 +118,22 @@ def task_cleaning(depends_on, produces):
         )
         if "p_id" in df.columns:
             df = clean_data(df, i).set_index(["p_id", "hh_id", "wave"]).sort_index()
-            df = reverse_code_big5(df)
-            df = average_big5(df)
         else:
             df = clean_data(df, i).set_index(["hh_id", "wave"]).sort_index()
         df.to_pickle(str(Path(produces)) + f"/{i}_clean.pickle")
 
+    df1 = pd.read_pickle(BLD / "PENDDAT_clean.pickle")  # read the clean data
+    df1 = reverse_code_big5(df1)
+    df1 = average_big5(df1)
+    df1.to_pickle(produces / "PENDDAT_clean.pickle")
 
-""" @pytask.mark.try_last
+
+"""
+@pytask.mark.try_last
 @pytask.mark.depends_on(BLD / "PENDDAT_clean.pickle")
-@pytask.mark.produces(BLD)
+@pytask.mark.produces(BLD/"PENDDAT_clean.pickle")
 def task_scaling(depends_on, produces):
     df=pd.read_pickle(depends_on) #read the clean data
     df=reverse_code_big5(df)
     df=average_big5(df)
-    df.to_pickle(produces / "PENDDAT_clean.pickle")
- """
+    df.to_pickle(produces / "PENDDAT_clean.pickle") """
