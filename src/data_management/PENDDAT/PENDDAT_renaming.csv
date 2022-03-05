@@ -18,10 +18,10 @@ PEO0300b;Wichtig bei Beruf: Ein Beruf, der Spass macht;
 PEO0300c;Wichtig bei Beruf: Gute Aufstiegsmoeglichkeiten;
 PEO0300d;Wichtig bei Beruf: Ein sicherer Arbeitsplatz;
 PEO0300e;Wichtig bei Beruf: Ein Beruf, bei dem man seine Faehigkeiten zeigen kann;
-PEO0400a;Familie/Beruf: Frau sollte bereit, Arbeitszeit wegen Familie zu verringern;
-PEO0400b;Familie/Beruf: Was Frauen wirklich wollen, sind ein Heim und Kinder;
-PEO0400c;Familie/Beruf: Berufst. Mutter kann genauso herzl. Verhaeltn. zu Kindern haben ;
-PEO0400d;Familie/Beruf: Aufgabe Ehemann: Geld verdienen, Aufgabe Ehefrau: Haushalt/Fam.;
+PEO0400a;Familie/Beruf: Frau sollte bereit, Arbeitszeit wegen Familie zu verringern;genrole_traditional_a
+PEO0400b;Familie/Beruf: Was Frauen wirklich wollen, sind ein Heim und Kinder;genrole_traditional_b
+PEO0400c;Familie/Beruf: Berufst. Mutter kann genauso herzl. Verhaeltn. zu Kindern haben ; genrole_modern
+PEO0400d;Familie/Beruf: Aufgabe Ehemann: Geld verdienen, Aufgabe Ehefrau: Haushalt/Fam.;genrole_traditional_c
 PEO0800a;Einst. regelmaessige Kinderbetreuung ab welchem Alter (Monate);
 PEO0800b;Einst. regelmaessige Kinderbetreuung ab welchem Alter (Jahre);
 PEO0900a;Einst. regelmaessige ganztaegige Kinderbetreuung ab welchem Alter (Monate);
@@ -58,16 +58,16 @@ PEO1400s;B5 Neurotizismus: Ich werde leicht nervoes und unsicher;b5_neu_d
 PEO1400t;B5 Offenheit f. Erf.: Ich schaetze kuenstlerische und aesthetische Eindruecke;b5_open_d
 PEO1400u;B5 Offenheit f. Erfahrungen (neg.): Ich habe nur wenig kuenstlerisches Interesse;b5_open_e_neg
 PQB1100;Zufriedenheit mit Gehalt bzw. Lohn;
-PQB0600a;Chancen/Belastungen im Job: haeufig grosser Zeitdruck;
-PQB0600b;Chancen/Belastungen im Job: haeufig unterbrochen und gestoert;
-PQB0600c;Chancen/Belastungen im Job: Arbeit mehr geworden i.d. letzten 2 Jahren;
-PQB0600d;Chancen/Belastungen im Job: erhalte verdiente Anerkennung von Vorgesetztem;
-PQB0600e;Chancen/Belastungen im Job: schlechte Aufstiegsschancen im Betrieb;
-PQB0600f;Chancen/Belastungen im Job: schlechtere Arbeitssituation erfahren/erwartet;
-PQB0600g;Chancen/Belastungen im Job: eigener Arbeitsplatz gefaehrdet;
-PQB0600h;Chancen/Belastungen im Job: erfahrene Anerkennung ist angemessen;
-PQB0600i;Chancen/Belastungen im Job: Chancen f. berufl. Fortkommen sind angemessen;
-PQB0600j;Chancen/Belastungen im Job: Gehalt/Lohn ist angemessen;
+PQB0600a;Chancen/Belastungen im Job: haeufig grosser Zeitdruck;eri_effort_a
+PQB0600b;Chancen/Belastungen im Job: haeufig unterbrochen und gestoert;eri_effort_b
+PQB0600c;Chancen/Belastungen im Job: Arbeit mehr geworden i.d. letzten 2 Jahren;eri_effort_c
+PQB0600d;Chancen/Belastungen im Job: erhalte verdiente Anerkennung von Vorgesetztem;eri_reward_a
+PQB0600e;Chancen/Belastungen im Job: schlechte Aufstiegsschancen im Betrieb;eri_reward_b_neg
+PQB0600f;Chancen/Belastungen im Job: schlechtere Arbeitssituation erfahren/erwartet;eri_reward_c_neg
+PQB0600g;Chancen/Belastungen im Job: eigener Arbeitsplatz gefaehrdet;eri_reward_d_neg
+PQB0600h;Chancen/Belastungen im Job: erfahrene Anerkennung ist angemessen;eri_reward_e
+PQB0600i;Chancen/Belastungen im Job: Chancen f. berufl. Fortkommen sind angemessen;eri_reward_f
+PQB0600j;Chancen/Belastungen im Job: Gehalt/Lohn ist angemessen;eri_reward_g
 PQB0600k;Chancen/Belastungen im Job: haeufig Aerger/Konflikte mit Vorgesetzten;
 PQB0600l;Chancen/Belastungen im Job: komme gut mit Arbeitskollegen aus;
 PSK0100;Indikator: Enge Freunde/Familienmitglieder ausserhalb des HH?;
