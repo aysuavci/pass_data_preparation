@@ -87,24 +87,49 @@ def clean_data(df, i, negatives=None):
     return df
 
 
-def reverse_code_big5(df):
+""" @pytask.mark.depends_on(SRC / "original_data/PENDDAT_cf_W11.dta")
+@pytask.mark.produces(BLD / "p_clean.pickle")
+def task_clean_penddat(depends_on, produces):
+    df = pd.read_stata(depends_on, convert_categoricals=False)
+    # df = p_renaming_columns(df)
+    # df = p_replacing_negative(df).set_index(["p_id", "hh_id", "wave"])
+    df = p_clean_data(df).set_index(["p_id", "hh_id", "wave"]).sort_index()
+    df.to_pickle(produces) """
+
+
+def reverse_code(df):
     for i in df:
         if (f"{i}" in df.filter(regex="_neg")) is True:
             new_column_name = i.replace("_neg", "")
-            df[new_column_name] = (
-                6 - df[i]
-            )  # Subtrack 6 to reverse code(6-1(lowest)=5(highest))
+            value_to_be_used = df[i].max() + 1
+            df[new_column_name] = value_to_be_used - df[i]
     return df
 
 
 def average_big5(df):
-    facets = ["ext", "agree", "consc", "neu", "open"]
-    for i in facets:
+    facets_b5 = ["ext", "agree", "consc", "neu", "open"]
+    for i in facets_b5:
         df[f"b5_{i}"] = (
             df[df.columns.drop(list(df.filter(regex="_neg")))]
             .filter(regex=f"b5_{i}")
             .mean(axis=1)
         )
+    return df
+
+
+def average_eri(df):
+    facets_eri = ["effort", "reward"]
+    for i in facets_eri:
+        df[f"eri_{i}"] = (
+            df[df.columns.drop(list(df.filter(regex="_neg")))]
+            .filter(regex=f"eri_{i}")
+            .mean(axis=1)
+        )
+    return df
+
+
+def average_genrole(df):
+    df["genrole_traditional"] = df.filter(regex="traditional").mean(axis=1)
     return df
 
 
@@ -122,9 +147,15 @@ def task_cleaning(depends_on, produces):
             df = clean_data(df, i).set_index(["hh_id", "wave"]).sort_index()
         df.to_pickle(str(Path(produces)) + f"/{i}_clean.pickle")
 
-    df1 = pd.read_pickle(BLD / "PENDDAT_clean.pickle")  # read the clean data
-    df1 = reverse_code_big5(df1)
+    df1 = pd.read_pickle(BLD / "PENDDAT_clean.pickle")
+    # reverse all the negatively phrased variables
+    df1 = reverse_code(df1)
+    # get facet averages for big five
     df1 = average_big5(df1)
+    # get facet averages for eri
+    df1 = average_eri(df1)
+    # get traditional gender role average
+    df1 = average_genrole(df1)
     df1.to_pickle(produces / "PENDDAT_clean.pickle")
 
 
