@@ -14,3 +14,7 @@ Aysu Avcı and Melih Damar
 - PASS Campus file dataset is a simplified version of the main dataset that is suitable for academic teaching and obtaining various insights into the handling of PASS data.
 - Compared to the main dataset, PASS-CF contains a reduced number of observations, range of variables and modified identification numbers as well as information; therefore it is not suitable for substantial scientific analysis.
 
+## Motivation for the Project
+- The purpose of this project is to create a PASS-CF data preparation repository that can be a template and a starting point for a similar repository for the main PASS data set.
+- We also aim to familiarize ourselves with the effective use of programming in cleaning panel data sets and performing initial analysis.
+
