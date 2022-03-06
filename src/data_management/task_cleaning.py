@@ -5,6 +5,7 @@ from sys import platform
 import numpy as np
 import pandas as pd
 import pytask
+import yaml
 
 from src.config import BLD
 from src.config import SRC
@@ -133,6 +134,43 @@ def average_genrole(df):
     return df
 
 
+def create_dummies(dummies_p=None, dummies_h=None):
+    df_p = pd.read_pickle(BLD / "PENDDAT_clean.pickle")
+    df_h = pd.read_pickle(BLD / "HHENDDAT_clean.pickle")
+    if dummies_p is None:
+        dummies_p = Path(SRC / "data_management/dummies/PENDDAT_dummies.yaml")
+    if dummies_h is None:
+        dummies_h = Path(SRC / "data_management/dummies/HHENDDAT_dummies.yaml")
+    with open(dummies_p) as stream:
+        dummies_p = yaml.safe_load(stream)
+    with open(dummies_h) as stream:
+        dummies_h = yaml.safe_load(stream)
+    for dummies in dummies_p:
+        if dummies == "PG0100":
+            df_p[f"{dummies}_d"] = (df_p[f"{dummies}"] > 0).astype(int)
+        else:
+            df_p = pd.concat(
+                [
+                    df_p,
+                    pd.get_dummies(df_p[f"{dummies}"], prefix=f"{dummies}").rename(
+                        columns={f"{dummies}_1.0": f"{dummies}_d"}
+                    ),
+                ],
+                axis=1,
+            ).drop(f"{dummies}_2.0", axis=1)
+    for dummies in dummies_h:
+        df_h = pd.concat(
+            [
+                df_h,
+                pd.get_dummies(df_h[f"{dummies}"], prefix=f"{dummies}").rename(
+                    columns={f"{dummies}_1.0": f"{dummies}_d"}
+                ),
+            ],
+            axis=1,
+        ).drop(f"{dummies}_2.0", axis=1)
+    return (df_p, df_h)
+
+
 @pytask.mark.depends_on(SRC / "original_data")
 @pytask.mark.produces(BLD)
 def task_cleaning(depends_on, produces):
@@ -157,6 +195,10 @@ def task_cleaning(depends_on, produces):
     # get traditional gender role average
     df1 = average_genrole(df1)
     df1.to_pickle(produces / "PENDDAT_clean.pickle")
+
+    df_p, df_h = create_dummies()
+    df_p.to_pickle(produces / "PENDDAT_clean.pickle")
+    df_h.to_pickle(produces / "HHENDDAT_clean.pickle")
 
 
 """
