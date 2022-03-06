@@ -147,13 +147,13 @@ def create_dummies(dummies_p=None, dummies_h=None):
         dummies_h = yaml.safe_load(stream)
     for dummies in dummies_p:
         if dummies == "PG0100":
-            df_p[f"{dummies}_d"] = (df_p[f"{dummies}"] > 0).astype(int)
+            df_p[f"{dummies}_dummy"] = (df_p[f"{dummies}"] > 0).astype(int)
         else:
             df_p = pd.concat(
                 [
                     df_p,
                     pd.get_dummies(df_p[f"{dummies}"], prefix=f"{dummies}").rename(
-                        columns={f"{dummies}_1.0": f"{dummies}_d"}
+                        columns={f"{dummies}_1.0": f"{dummies}_dummy"}
                     ),
                 ],
                 axis=1,
@@ -163,7 +163,7 @@ def create_dummies(dummies_p=None, dummies_h=None):
             [
                 df_h,
                 pd.get_dummies(df_h[f"{dummies}"], prefix=f"{dummies}").rename(
-                    columns={f"{dummies}_1.0": f"{dummies}_d"}
+                    columns={f"{dummies}_1.0": f"{dummies}_dummy"}
                 ),
             ],
             axis=1,
