@@ -86,8 +86,9 @@ Some standardizations we use in renaming:
 ### Creating dummy variables
 
 - All the variables we use to create dummies are specified in 'src/data_management/dummies/{data_name}_dummies.yaml'.
-- The type of questions/variables that ...
-
-
+- Dummy variables are created without changing
+- In PASS-CF dataset, the questions with two possible answers are not coded as dummy variables but variables consist of 1 and 2 values (e.g. Yes=1, No=2). Therefore, we created dummy variables for the following type of variables to d:
+a. Yes/No questions
+b. Categorical questions with two possible answers
 
 
