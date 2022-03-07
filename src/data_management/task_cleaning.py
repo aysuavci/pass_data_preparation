@@ -148,26 +148,31 @@ def create_dummies(dummies_p=None, dummies_h=None):
     for dummies in dummies_p:
         if dummies == "PG0100":
             df_p[f"{dummies}_dummy"] = (df_p[f"{dummies}"] > 0).astype(int)
+            df_p.loc[df_p[f"{dummies}"].isna(), [f"{dummies}_dummy"]] = np.nan
         else:
             df_p = pd.concat(
                 [
                     df_p,
-                    pd.get_dummies(df_p[f"{dummies}"], prefix=f"{dummies}").rename(
-                        columns={f"{dummies}_1.0": f"{dummies}_dummy"}
-                    ),
+                    pd.get_dummies(
+                        df_p[f"{dummies}"], prefix=f"{dummies}", dummy_na=True
+                    ).rename(columns={f"{dummies}_1.0": f"{dummies}_dummy"}),
                 ],
                 axis=1,
             ).drop(f"{dummies}_2.0", axis=1)
+            df_p.loc[df_p[f"{dummies}_nan"] == 1, [f"{dummies}_dummy"]] = np.nan
+            df_p.drop(f"{dummies}_nan", axis=1, inplace=True)
     for dummies in dummies_h:
         df_h = pd.concat(
             [
                 df_h,
-                pd.get_dummies(df_h[f"{dummies}"], prefix=f"{dummies}").rename(
-                    columns={f"{dummies}_1.0": f"{dummies}_dummy"}
-                ),
+                pd.get_dummies(
+                    df_h[f"{dummies}"], prefix=f"{dummies}", dummy_na=True
+                ).rename(columns={f"{dummies}_1.0": f"{dummies}_dummy"}),
             ],
             axis=1,
         ).drop(f"{dummies}_2.0", axis=1)
+        df_h.loc[df_h[f"{dummies}_nan"] == 1, [f"{dummies}_dummy"]] = np.nan
+        df_h.drop(f"{dummies}_nan", axis=1, inplace=True)
     return (df_p, df_h)
 
 
