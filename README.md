@@ -55,6 +55,7 @@ The script performs the following steps for both household and individual level 
 All the data cleaning steps-from step 1 to 6- are specified in `src/data_management/task_cleaning.py'.
 
 ## Renaming Files
+
 - Can be found ...--TO BE ADDED--
 - The renaming files are ";"-separated .csv files and specify the new name for each variable.
 -- TO BE ADDED --
@@ -83,7 +84,9 @@ Some standardizations we use in renaming:
 - All the newly created variables are named according to module name.
 
 ### Creating dummy variables
-- 
+
+- All the variables we use to create dummies are specified in 'src/data_management/dummies/{data_name}_dummies.yaml'.
+- The type of questions/variables that ...
 
 
 
