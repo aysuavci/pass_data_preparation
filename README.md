@@ -18,3 +18,24 @@ Aysu Avcı and Melih Damar
 - The purpose of this project is to create a PASS-CF data preparation repository that can be a template and a starting point for a similar repository for the main PASS data set.
 - We also aim to familiarize ourselves with the effective use of programming in cleaning panel data sets and performing initial analysis.
 
+## Setup
+- The dataset PASS-CF is accessable after filling the form in the following link :[https://fdz.iab.de/en/campus-files/pass_cf/registrierungsformular-zum-download-des-campus-files-pass-0617-v1.aspx]
+- The longitudinal PASS-CF datasets, 'HHENDDAT_cf_W11.dta' and 'PENDDAT_cf_W11.dta' are using in this project. Therefore, please add these data files into the folder `original-data/` in your local repository on your computer.
+- Please make sure you have your conda environment up to date. The basic requirements can be found in the `environment.yml` file.
+
+- run `conda develop .`
+- run `pytask`
+
+This resource can be helpful to get an understanding of pytask: [https://pytask-dev.readthedocs.io/en/latest/index.html](https://pytask-dev.readthedocs.io/en/latest/index.html)
+
+## Structure
+
+--- TO BE ADDED ---
+
+The repository only contains scripts. The raw files need to be provided manually in the `src/original-data` folder and all output files need to be produced by running pytask and can then be found under `bld`.
+
+See [https://econ-project-templates.readthedocs.io/en/stable/](https://econ-project-templates.readthedocs.io/en/stable/) for more information on the template that is used.
+
+--- HOW TO GIVE CREDIT TO SOEP REPO? ---
+
+[The LISS data management documentation] (https://liss-data-management-documentation.readthedocs.io/en/latest/) that was created with similar structure might be also helful.
