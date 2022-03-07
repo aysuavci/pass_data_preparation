@@ -45,9 +45,46 @@ See [https://econ-project-templates.readthedocs.io/en/stable/](https://econ-proj
 The script performs the following steps for both household and individual level datasets.
 1. Collect the respective .dta file.
 2. Rename all variables according to the respective renaming csv file.
-3. Perform some data cleaning.
-4. Create new variables according to the [PASS Scale and Instrument Manual]:(https://doku.iab.de/fdz/reporte/2020/MR_07-20_EN.pdf).
-5. Create dummies that might come in useful
-6. Save the final data sets as .pickle
+3. Perform basic data cleaning.
+4. Reverse coding variables and aggregation.
+5. Create dummies that might come in useful.
+6. Save the final data sets as .pickle.
 7. Perform some tests for used functions.
 8. Report some summary statistics.
+
+All the data cleaning steps-from step 1 to 6- are specified in `src/data_management/task_cleaning.py'.
+
+## Renaming Files
+- Can be found ...--TO BE ADDED--
+- The renaming files are ";"-separated .csv files and specify the new name for each variable.
+-- TO BE ADDED --
+- Since the respective .csv files contains all the variables in that data set with the new variable names, it might be an useful documentation to view all the variables.
+- The general information about the original naming of the datasets can be found in Table 21 of the PASS User Guide which can be dowloaded via the following link: [https://doku.iab.de/fdz/pass/FDZ-Datenreporte_PASS_EN.zip].
+
+Some standardizations we use in renaming:
+1. Use of English
+2. A common naming for the variables in the same module (e.g. 'big_5').
+3. All the negatively phrased variables ends with '_n'.
+
+### Basic Data Cleaning
+
+- As the basic step for cleaning we convert all the values coded as negative to NaN values (e.g. “I don’t know -> np.nan”).
+- Then, we set indices for both data sets.
+
+### Reverse coding and aggregation
+
+- New variables are created according to the [PASS Scale and Instrument Manual]:(https://doku.iab.de/fdz/reporte/2020/MR_07-20_EN.pdf).
+- Like deprivation module in the household level data, some variables are already aggreagated and can be found in the data.
+- We extent this practice to the following modules in the individual level data:
+1. Big Five
+2. Effort-Reward Imbalance Scale (ERI Scale)
+3. Gender Role Attitudes
+- All the negatively phrased variables are inverted before the aggregation.
+- All the newly created variables are named according to module name.
+
+### Creating dummy variables
+- 
+
+
+
+
