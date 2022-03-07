@@ -134,9 +134,9 @@ def average_genrole(df):
     return df
 
 
-def create_dummies(dummies_p=None, dummies_h=None):
-    df_p = pd.read_pickle(BLD / "PENDDAT_clean.pickle")
-    df_h = pd.read_pickle(BLD / "HHENDDAT_clean.pickle")
+def create_dummies(df_p, df_h, dummies_p=None, dummies_h=None):
+    # df_p = pd.read_pickle(BLD / "PENDDAT_clean.pickle")
+    # df_h = pd.read_pickle(BLD / "HHENDDAT_clean.pickle")
     if dummies_p is None:
         dummies_p = Path(SRC / "data_management/dummies/PENDDAT_dummies.yaml")
     if dummies_h is None:
@@ -161,7 +161,7 @@ def create_dummies(dummies_p=None, dummies_h=None):
             ).drop(f"{dummies}_2.0", axis=1)
             df_p.loc[df_p[f"{dummies}_nan"] == 1, [f"{dummies}_dummy"]] = np.nan
             df_p.drop(f"{dummies}_nan", axis=1, inplace=True)
-    for dummies in dummies_h:
+    for dummies in dummies_h["others"]:
         df_h = pd.concat(
             [
                 df_h,
@@ -174,6 +174,18 @@ def create_dummies(dummies_p=None, dummies_h=None):
         df_h.loc[df_h[f"{dummies}_nan"] == 1, [f"{dummies}_dummy"]] = np.nan
         df_h.drop(f"{dummies}_nan", axis=1, inplace=True)
     return (df_p, df_h)
+
+
+def create_dummies_depr(df_h, dummies_h=None):
+    if dummies_h is None:
+        dummies_h = Path(SRC / "data_management/dummies/HHENDDAT_dummies.yaml")
+    with open(dummies_h) as stream:
+        dummies_h = yaml.safe_load(stream)
+    for dummies in dummies_h["deprivation"]:
+        df_h.loc[df_h[f"{dummies}b"] == 1, f"{dummies}_dummy"] = 1
+        df_h.loc[df_h[f"{dummies}b"] == 2, f"{dummies}_dummy"] = 0
+        df_h.loc[df_h[f"{dummies}a"] == 1, f"{dummies}_dummy"] = 0
+    return df_h
 
 
 @pytask.mark.depends_on(SRC / "original_data")
@@ -190,28 +202,19 @@ def task_cleaning(depends_on, produces):
             df = clean_data(df, i).set_index(["hh_id", "wave"]).sort_index()
         df.to_pickle(str(Path(produces)) + f"/{i}_clean.pickle")
 
-    df1 = pd.read_pickle(BLD / "PENDDAT_clean.pickle")
+    df_p = pd.read_pickle(BLD / "PENDDAT_clean.pickle")
+    df_h = pd.read_pickle(BLD / "HHENDDAT_clean.pickle")
     # reverse all the negatively phrased variables
-    df1 = reverse_code(df1)
+    df_p = reverse_code(df_p)
     # get facet averages for big five
-    df1 = average_big5(df1)
+    df_p = average_big5(df_p)
     # get facet averages for eri
-    df1 = average_eri(df1)
+    df_p = average_eri(df_p)
     # get traditional gender role average
-    df1 = average_genrole(df1)
-    df1.to_pickle(produces / "PENDDAT_clean.pickle")
+    df_p = average_genrole(df_p)
+    # df_p.to_pickle(produces / "PENDDAT_clean.pickle")
 
-    df_p, df_h = create_dummies()
+    df_p, df_h = create_dummies(df_p, df_h)
+    df_h = create_dummies_depr(df_h)
     df_p.to_pickle(produces / "PENDDAT_clean.pickle")
     df_h.to_pickle(produces / "HHENDDAT_clean.pickle")
-
-
-"""
-@pytask.mark.try_last
-@pytask.mark.depends_on(BLD / "PENDDAT_clean.pickle")
-@pytask.mark.produces(BLD/"PENDDAT_clean.pickle")
-def task_scaling(depends_on, produces):
-    df=pd.read_pickle(depends_on) #read the clean data
-    df=reverse_code_big5(df)
-    df=average_big5(df)
-    df.to_pickle(produces / "PENDDAT_clean.pickle") """
