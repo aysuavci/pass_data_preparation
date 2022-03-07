@@ -39,3 +39,15 @@ See [https://econ-project-templates.readthedocs.io/en/stable/](https://econ-proj
 --- HOW TO GIVE CREDIT TO SOEP REPO? ---
 
 [The LISS data management documentation] (https://liss-data-management-documentation.readthedocs.io/en/latest/) that was created with similar structure might be also helful.
+
+## Implementation Details
+
+The script performs the following steps for both household and individual level datasets.
+1. Collect the respective .dta file.
+2. Rename all variables according to the respective renaming csv file.
+3. Perform some data cleaning.
+4. Create new variables according to the [PASS Scale and Instrument Manual]:(https://doku.iab.de/fdz/reporte/2020/MR_07-20_EN.pdf).
+5. Create dummies that might come in useful
+6. Save the final data sets as .pickle
+7. Perform some tests for used functions.
+8. Report some summary statistics.
