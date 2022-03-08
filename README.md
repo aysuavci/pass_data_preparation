@@ -22,6 +22,7 @@ Aysu Avcı and Melih Damar
 - The dataset PASS-CF is accessable after filling the form in the following link :[https://fdz.iab.de/en/campus-files/pass_cf/registrierungsformular-zum-download-des-campus-files-pass-0617-v1.aspx]
 - The longitudinal PASS-CF datasets, `HHENDDAT_cf_W11.dta` and `PENDDAT_cf_W11.dta` are using in this project. Therefore, please add these data files into the folder `original-data/` in your local repository on your computer.
 - Please make sure you have your conda environment up to date. The basic requirements can be found in the `environment.yml` file.
+- It is recommended also to activate project environment by running `conda activate pass_data_preparation`.
 
 - run `conda develop .`
 - run `pytask`
