@@ -6,8 +6,8 @@ Aysu Avcı and Melih Damar
 ## PASS Data
 - The Panel Study Labour Market and Social Security (PASS) is a data set established in 2007 by the Institute for Employment Research (IAB) among German households.
 - The dataset contains information at the household and individual levels.
-- Households are identified via ‘hnr’ and ‘wave’
-- Individuals are identified via ‘pnr’ and ‘wave’
+- Households are identified via `hnr` and `wave`
+- Individuals are identified via `pnr` and `wave`
 - Access to the PASS main dataset is only possible via an application to the Research Data Center (FDZ).
 
 ## PASS-CF Data
@@ -20,7 +20,7 @@ Aysu Avcı and Melih Damar
 
 ## Setup
 - The dataset PASS-CF is accessable after filling the form in the following link :[https://fdz.iab.de/en/campus-files/pass_cf/registrierungsformular-zum-download-des-campus-files-pass-0617-v1.aspx]
-- The longitudinal PASS-CF datasets, 'HHENDDAT_cf_W11.dta' and 'PENDDAT_cf_W11.dta' are using in this project. Therefore, please add these data files into the folder `original-data/` in your local repository on your computer.
+- The longitudinal PASS-CF datasets, `HHENDDAT_cf_W11.dta` and `PENDDAT_cf_W11.dta` are using in this project. Therefore, please add these data files into the folder `original-data/` in your local repository on your computer.
 - Please make sure you have your conda environment up to date. The basic requirements can be found in the `environment.yml` file.
 
 - run `conda develop .`
@@ -38,7 +38,7 @@ See [https://econ-project-templates.readthedocs.io/en/stable/](https://econ-proj
 
 --- HOW TO GIVE CREDIT TO SOEP REPO? ---
 
-[The LISS data management documentation] (https://liss-data-management-documentation.readthedocs.io/en/latest/) that was created with similar structure might be also helful.
+[The LISS data management documentation](https://liss-data-management-documentation.readthedocs.io/en/latest/) that was created with similar structure might be also helful.
 
 ## Implementation Details
 
@@ -52,7 +52,7 @@ The script performs the following steps for both household and individual level 
 7. Perform some tests for used functions.
 8. Report some summary statistics.
 
-All the data cleaning steps-from step 1 to 6- are specified in `src/data_management/task_cleaning.py'.
+All the data cleaning steps-from step 1 to 6- are specified in `src/data_management/task_cleaning.py`.
 
 ## Renaming Files
 
@@ -64,8 +64,8 @@ All the data cleaning steps-from step 1 to 6- are specified in `src/data_managem
 
 Some standardizations we use in renaming:
 1. Use of English
-2. A common naming for the variables in the same module (e.g. 'big_5').
-3. All the negatively phrased variables ends with '_n'.
+2. A common naming for the variables in the same module (e.g. `big_5`).
+3. All the negatively phrased variables ends with `_n`.
 
 ### Basic Data Cleaning
 
@@ -85,7 +85,7 @@ Some standardizations we use in renaming:
 
 ### Creating dummy variables
 
-- All the variables we use to create dummies are specified in 'src/data_management/dummies/{data_name}_dummies.yaml'.
+- All the variables we use to create dummies are specified in `src/data_management/dummies/{data_name}_dummies.yaml`.
 - Dummy variables are created without changing the original variables or values.
 - For convenience, we create dummy variable in the following structure `{original_variable_name}_dummy`. 
 - In PASS-CF dataset, the questions with two possible answers were not coded as dummy variables but variables consist of values 1 and 2 (e.g. Yes=1, No=2). Therefore, we create dummy variables for the following type of items:
