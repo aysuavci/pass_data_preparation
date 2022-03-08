@@ -20,13 +20,11 @@ def get_names_dataset(path=SRC / "original_data"):
         b = "/"
 
     files = list(glob.glob(str(path) + f"{a}"))
-    # [file for file in glob.glob(path + f"\*")]
     name = []
     for i in range(len(files)):
         if any(x.isupper() for x in files[i].split(f"{b}")[-1].split("_")[0]):
             name.append(files[i].split(f"{b}")[-1].split("_")[0])
         else:
-            # a = files[i].split("\\")[6].split("_")[0:2]
             name.append(
                 files[i].split(f"{b}")[-1].split("_")[0]
                 + "_"
@@ -86,16 +84,6 @@ def clean_data(df, i, negatives=None):
     for i in negatives:
         df[df == i] = np.nan
     return df
-
-
-""" @pytask.mark.depends_on(SRC / "original_data/PENDDAT_cf_W11.dta")
-@pytask.mark.produces(BLD / "p_clean.pickle")
-def task_clean_penddat(depends_on, produces):
-    df = pd.read_stata(depends_on, convert_categoricals=False)
-    # df = p_renaming_columns(df)
-    # df = p_replacing_negative(df).set_index(["p_id", "hh_id", "wave"])
-    df = p_clean_data(df).set_index(["p_id", "hh_id", "wave"]).sort_index()
-    df.to_pickle(produces) """
 
 
 def reverse_code(df):
