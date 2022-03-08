@@ -74,7 +74,7 @@ Some standardizations we use in renaming:
 
 ### Reverse coding and aggregation
 
-- New variables are created according to the [PASS Scale and Instrument Manual]:(https://doku.iab.de/fdz/reporte/2020/MR_07-20_EN.pdf).
+- New variables are created according to the [PASS Scale and Instrument Manual](https://doku.iab.de/fdz/reporte/2020/MR_07-20_EN.pdf).
 - Like deprivation module in the household level data, some variables are already aggreagated and can be found in the data.
 - We extent this practice to the following modules in the individual level data:
 1. Big Five
@@ -86,9 +86,12 @@ Some standardizations we use in renaming:
 ### Creating dummy variables
 
 - All the variables we use to create dummies are specified in 'src/data_management/dummies/{data_name}_dummies.yaml'.
-- Dummy variables are created without changing
-- In PASS-CF dataset, the questions with two possible answers are not coded as dummy variables but variables consist of 1 and 2 values (e.g. Yes=1, No=2). Therefore, we created dummy variables for the following type of variables to d:
-a. Yes/No questions
-b. Categorical questions with two possible answers
-
+- Dummy variables are created without changing the original variables or values.
+- For convenience, we create dummy variable in the following structure `{original_variable_name}_dummy`. 
+- In PASS-CF dataset, the questions with two possible answers were not coded as dummy variables but variables consist of values 1 and 2 (e.g. Yes=1, No=2). Therefore, we create dummy variables for the following type of items:
+1. Yes/No questions (e.g. social media usage in the last 4 weeks)
+2. Categorical questions with two possible answers (e.g. gender)
+On top of these variables we also created dummies for:
+3.`PG0100`, a numeric variable that ranges between 0-99 and indicates the number of doctor visits in the last 3 months.
+4. Financial reason dummies for the Deprivation Module. In this module, individuals were asked about owning certain goods or engaging in certain activities. In case the household answers no to an item, the household is asked if it is due to financial or other reasons. Therefore, we create dummies where the value 1 corresponds to not owning goods or engaging in activities for financial reasons (e.g., no car for financial reasons).
 
