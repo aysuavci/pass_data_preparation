@@ -1,5 +1,4 @@
-import os
-from pathlib import Path
+import shutil
 
 import pandas as pd
 import pytask
@@ -35,7 +34,7 @@ names = get_names_dataset()
     [
         (
             SRC / f"original_data/{i}_cf_W11.dta",
-            BLD / "renamed_data" / f"{i}_clean.pickle",
+            BLD / "cleaned_data" / f"{i}_clean.pickle",
             i,
         )
         for i in names
@@ -54,11 +53,23 @@ def task_cleaning(depends_on, produces, i):
     df.to_pickle(produces)
 
 
-@pytask.mark.depends_on(BLD / "renamed_data")
-@pytask.mark.produces(BLD)
+@pytask.mark.depends_on(
+    {
+        "first": BLD / "cleaned_data" / "PENDDAT_clean.pickle",
+        "second": BLD / "cleaned_data" / "HHENDDAT_clean.pickle",
+    }
+)
+@pytask.mark.produces(
+    {
+        "first": BLD / "aggregated_data" / "PENDDAT_aggregated.pickle",
+        "second": BLD / "aggregated_data" / "HHENDDAT_aggregated.pickle",
+    }
+)
 def task_aggregation_and_dummy(depends_on, produces):
-    df_p = pd.read_pickle(str(Path(depends_on)) + "/PENDDAT_clean.pickle")
-    df_h = pd.read_pickle(str(Path(depends_on)) + "/HHENDDAT_clean.pickle")
+    df_p = pd.read_pickle(depends_on["first"])
+    df_h = pd.read_pickle(depends_on["second"])
+    # df_p = pd.read_pickle(str(Path(depends_on)) + "/PENDDAT_clean.pickle")
+    # df_h = pd.read_pickle(str(Path(depends_on)) + "/HHENDDAT_clean.pickle")
 
     df_p = reverse_code(df_p)  # reverse all the negatively phrased variables
     df_p = average_big5(df_p)  # get facet averages for big five
@@ -67,11 +78,18 @@ def task_aggregation_and_dummy(depends_on, produces):
 
     df_p, df_h = create_dummies(df_p, df_h)
     df_h = create_dummies_depr(df_h)
-    df_p.to_pickle(produces / "PENDDAT_clean.pickle")
-    df_h.to_pickle(produces / "HHENDDAT_clean.pickle")
+    df_p.to_pickle(produces["first"])
+    df_h.to_pickle(produces["second"])
 
 
-@pytask.mark.depends_on({"first": BLD / "renamed_data", "second": BLD})
+@pytask.mark.depends_on(
+    {
+        "first": BLD / "cleaned_data" / "hweights_clean.pickle",
+        "second": BLD / "cleaned_data" / "pweights_clean.pickle",
+        "third": BLD / "aggregated_data" / "HHENDDAT_aggregated.pickle",
+        "fourth": BLD / "aggregated_data" / "PENDDAT_aggregated.pickle",
+    }
+)
 @pytask.mark.produces(
     {
         "first": BLD / "final_data" / "merged_clean.pickle",
@@ -79,13 +97,12 @@ def task_aggregation_and_dummy(depends_on, produces):
         "third": BLD / "weighted_data" / "PENDDAT_weighted.pickle",
     }
 )
-# @pytask.mark.produces({"first": BLD / "final_data"/"", "second": BLD / "weighted_data"})
 def task_merging(depends_on, produces):
 
-    df_h_c = pd.read_pickle(str(Path(depends_on["second"])) + "/HHENDDAT_clean.pickle")
-    df_p_c = pd.read_pickle(str(Path(depends_on["second"])) + "/PENDDAT_clean.pickle")
-    df_h_w = pd.read_pickle(str(Path(depends_on["first"])) + "/hweights_clean.pickle")
-    df_p_w = pd.read_pickle(str(Path(depends_on["first"])) + "/pweights_clean.pickle")
+    df_h_c = pd.read_pickle(depends_on["third"])
+    df_p_c = pd.read_pickle(depends_on["fourth"])
+    df_h_w = pd.read_pickle(depends_on["first"])
+    df_p_w = pd.read_pickle(depends_on["second"])
 
     merged_h = pd.merge(df_h_c, df_h_w, on=["wave", "hh_id"], how="left")
     merged_p = pd.merge(
@@ -101,8 +118,13 @@ def task_merging(depends_on, produces):
     merged_w.to_pickle(produces["first"])
     merged_h.to_pickle(produces["second"])
     merged_p.to_pickle(produces["third"])
-    os.remove(BLD / "PENDDAT_clean.pickle")
-    os.remove(BLD / "HHENDDAT_clean.pickle")
+
+    shutil.rmtree(BLD / "cleaned_data")
+    shutil.rmtree(BLD / "_data")
+    # os.remove(BLD / "HHENDDAT_clean.pickle")
+    # os.remove(BLD / "PENDDAT_clean.pickle")
+    # os.remove(BLD / "hweights_clean.pickle")
+    # os.remove(BLD / "pweights_clean.pickle")
 
 
 """

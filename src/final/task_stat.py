@@ -1,4 +1,4 @@
-from pathlib import Path
+r""" from pathlib import Path
 
 import pandas as pd
 import pytask
@@ -29,3 +29,4 @@ def task_creating_summary_stat_tex(depends_on, produces):
             .round(2)
         )
         df_stat.to_latex(str(Path(produces)) + f"/{i}_sum_stat.tex")
+ """
