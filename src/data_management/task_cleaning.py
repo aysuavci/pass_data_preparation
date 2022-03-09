@@ -185,7 +185,7 @@ def task_cleaning(depends_on, produces):
             str(Path(depends_on)) + f"/{i}_cf_W11.dta", convert_categoricals=False
         )
         if "p_id" in df.columns:
-            df = clean_data(df, i).set_index(["p_id", "hh_id", "wave"]).sort_index()
+            df = clean_data(df, i).set_index(["hh_id", "wave", "p_id"]).sort_index()
         else:
             df = clean_data(df, i).set_index(["hh_id", "wave"]).sort_index()
         df.to_pickle(str(Path(produces)) + f"/{i}_clean.pickle")
