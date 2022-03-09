@@ -1,19 +1,50 @@
-import glob
 from pathlib import Path
-from sys import platform
 
-import numpy as np
 import pandas as pd
 import pytask
-import yaml
 
 from src.config import BLD
 from src.config import SRC
+from src.data_management.cleaning_functions import *
 
+
+@pytask.mark.depends_on(SRC / "original_data")
+@pytask.mark.produces(BLD)
+def task_cleaning(depends_on, produces):
+    names = get_names_dataset()
+    for i in names:
+        df = pd.read_stata(
+            str(Path(depends_on)) + f"/{i}_cf_W11.dta", convert_categoricals=False
+        )
+        if "p_id" in df.columns:
+            df = clean_data(df, i).set_index(["hh_id", "wave", "p_id"]).sort_index()
+        else:
+            df = clean_data(df, i).set_index(["hh_id", "wave"]).sort_index()
+        df.to_pickle(str(Path(produces)) + f"/{i}_clean.pickle")
+
+    df_p = pd.read_pickle(BLD / "PENDDAT_clean.pickle")
+    df_h = pd.read_pickle(BLD / "HHENDDAT_clean.pickle")
+    # reverse all the negatively phrased variables
+    df_p = reverse_code(df_p)
+    # get facet averages for big five
+    df_p = average_big5(df_p)
+    # get facet averages for eri
+    df_p = average_eri(df_p)
+    # get traditional gender role average
+    df_p = average_genrole(df_p)
+    # df_p.to_pickle(produces / "PENDDAT_clean.pickle")
+
+    df_p, df_h = create_dummies(df_p, df_h)
+    df_h = create_dummies_depr(df_h)
+    df_p.to_pickle(produces / "PENDDAT_clean.pickle")
+    df_h.to_pickle(produces / "HHENDDAT_clean.pickle")
+
+
+"""
 
 def get_names_dataset(path=SRC / "original_data"):
     if platform == "win32":
-        a = r"\*"
+        a = r"\\*"
         b = "\\"
     elif platform == "darwin":
         a = r"/*"
@@ -50,24 +81,6 @@ def p_replacing_negative(data_set, negatives=None):
     for i in negatives:
         data_set[data_set == i] = np.nan
     return data_set
-
-
-""" def p_clean_data(df, negatives=None):
-    if negatives is None:
-        negatives = list(range(-1, -11, -1))
-
-    new_names = pd.read_csv(
-        SRC / "data_management/PENDDAT/penddat_renaming.csv", sep=";"
-    )["new_name"]
-    renaming_dict = dict(zip(df.columns, new_names))
-    renaming_dict = {
-        k: v for k, v in renaming_dict.items() if pd.notna(v)
-    }  # Deleting NA values
-    df = df.rename(columns=renaming_dict)
-    for i in negatives:
-        df[df == i] = np.nan
-    return df """
-
 
 def clean_data(df, i, negatives=None):
     if negatives is None:
@@ -137,6 +150,18 @@ def create_dummies(df_p, df_h, dummies_p=None, dummies_h=None):
         if dummies == "PG0100":
             df_p[f"{dummies}_dummy"] = (df_p[f"{dummies}"] > 0).astype(int)
             df_p.loc[df_p[f"{dummies}"].isna(), [f"{dummies}_dummy"]] = np.nan
+        elif dummies=="migration": # becuase migration has reversed value in dummies
+            df_p = pd.concat(
+                [
+                    df_p,
+                    pd.get_dummies(
+                        df_p[f"{dummies}"], prefix=f"{dummies}", dummy_na=True
+                    ).rename(columns={f"{dummies}_2.0": f"{dummies}_dummy"}),
+                ],
+                axis=1,
+            ).drop(f"{dummies}_1.0", axis=1)
+            df_p.loc[df_p[f"{dummies}_nan"] == 1, [f"{dummies}_dummy"]] = np.nan
+            df_p.drop(f"{dummies}_nan", axis=1, inplace=True)
         else:
             df_p = pd.concat(
                 [
@@ -175,34 +200,4 @@ def create_dummies_depr(df_h, dummies_h=None):
         df_h.loc[df_h[f"{dummies}a"] == 1, f"{dummies}_dummy"] = 0
     return df_h
 
-
-@pytask.mark.depends_on(SRC / "original_data")
-@pytask.mark.produces(BLD)
-def task_cleaning(depends_on, produces):
-    names = get_names_dataset()
-    for i in names:
-        df = pd.read_stata(
-            str(Path(depends_on)) + f"/{i}_cf_W11.dta", convert_categoricals=False
-        )
-        if "p_id" in df.columns:
-            df = clean_data(df, i).set_index(["hh_id", "wave", "p_id"]).sort_index()
-        else:
-            df = clean_data(df, i).set_index(["hh_id", "wave"]).sort_index()
-        df.to_pickle(str(Path(produces)) + f"/{i}_clean.pickle")
-
-    df_p = pd.read_pickle(BLD / "PENDDAT_clean.pickle")
-    df_h = pd.read_pickle(BLD / "HHENDDAT_clean.pickle")
-    # reverse all the negatively phrased variables
-    df_p = reverse_code(df_p)
-    # get facet averages for big five
-    df_p = average_big5(df_p)
-    # get facet averages for eri
-    df_p = average_eri(df_p)
-    # get traditional gender role average
-    df_p = average_genrole(df_p)
-    # df_p.to_pickle(produces / "PENDDAT_clean.pickle")
-
-    df_p, df_h = create_dummies(df_p, df_h)
-    df_h = create_dummies_depr(df_h)
-    df_p.to_pickle(produces / "PENDDAT_clean.pickle")
-    df_h.to_pickle(produces / "HHENDDAT_clean.pickle")
+ """

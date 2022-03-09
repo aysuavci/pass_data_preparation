@@ -1,9 +1,9 @@
-- "hh_size" : "Household size"
-- "hh_income" : "Household income per month(in euros)"
-- "oecdincn" : "Means-weighted household income"
-- "hh_alg2_dummy" : "Receives unemployment benefit"
-- "child_benefit_dummy" : "Receives child benefit"
-- "childcare_expenses_mon" : "Monthly childcare expenses (1=Free to 5=at least 300 euros)"
-- "depindug2" : "Deprivation Index, Unweighted"
-- "depingdg2" : "Deprivation Index, Weighted"
-- "living_area" : "Living area, in sqm"
+hh_size : Household size
+hh_income : Household income per month(in euros)
+hh_income_oecd : Means-weighted household income
+hh_alg2_dummy : Receives unemployment benefit
+child_benefit_dummy : Receives child benefit
+childcare_expenses_mon : Monthly childcare expenses (1=Free to 5=at least 300 euros)"
+depr_index : Deprivation Index, Unweighted
+depr_index_w : Deprivation Index, Weighted
+living_area : Living area, in sqm

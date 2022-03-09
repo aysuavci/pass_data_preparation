@@ -8,11 +8,7 @@ from src.config import BLD
 from src.config import SRC
 
 # from cleaning_functions import *
-# from numpy.testing import assert_equal
 # from pandas.testing import assert_frame_equal
-
-# Inputs
-# Define the variables
 
 
 @pytest.fixture
@@ -77,59 +73,3 @@ def test_na(original_data_p, clean_data_p):
     expected = (df_p < 0).any().any()
     actual = (df_p_c.fillna(0) >= 0).all().all()
     assert_equal(actual, expected)
-
-
-"""
-root_covs_np = np.zeros((nobs, nstates, nstates))
-root_covs_np[:] = root_cov
-root_covs_list = []
-for _i in range(nobs):
-    root_covs_list.append(
-        pd.DataFrame(data=root_cov, columns=state_names, index=state_names)
-    )
-
-# create loadings np array  and dataframe
-loadings_np = np.array([1.0, 0, 0, 0, 0])
-loadings_pd = pd.Series(loadings_np, index=state_names)
-# create measurements np array and dateframe
-measurements_np = np.array([3.95733, 4.61214, 3.38793])
-measurements_pd = pd.Series(measurements_np)
-# construct the variance
-meas_var = 0.8
-
-# differentiate between pandas and numpy Inputs
-kwargs_pandas = {
-    "states": states_pd,
-    "root_covs": root_covs_list,
-    "measurements": measurements_pd,
-    "loadings": loadings_pd,
-    "meas_var": meas_var,
-}
-
-
-kwargs_numpy = {
-    "states": states_np,
-    "root_covs": root_covs_np,
-    "measurements": measurements_np,
-    "loadings": loadings_np,
-    "meas_var": meas_var,
-}
-
-### TESTS
-
-
-
-def test_fast_batch_update_state():
-    expected_state, expected_root_covs = pandas_batch_update(**kwargs_pandas)
-    # expected_root_covs=np.array(expected_root_covs)
-    cal_state, cal_root_covs = fast_batch_update(**kwargs_numpy)
-    assert_array_almost_equal(cal_state, expected_state)
-
-
-def test_fast_batch_update_root_covs():
-    expected_state, expected_root_covs = pandas_batch_update(**kwargs_pandas)
-    cal_state, cal_root_covs = fast_batch_update(**kwargs_numpy)
-    cal_root_covs = cal_root_covs.tolist()
-    for i, root_cov in enumerate(cal_root_covs):
-        expected_root_covs[i] = expected_root_covs[i].to_numpy()
-        assert_array_almost_equal(expected_root_covs[i], cal_root_covs[i]) """

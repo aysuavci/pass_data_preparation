@@ -1,13 +1,14 @@
-- "sex_dummy" : "Male (=1)"
-- "age" : "Age"
-- "religiosity" : "Religiosity (1=Not at all to 4=Very)"
-- "PA1000" : "General life satisfaction (0=Totally dissatisfied to 10=Completely satisfied)"
-- "PSM0100_dummy" : "Used social meadia in the last 4 week (=1)"
-- "PSK0200" : "Number of close friends"
-- "PG0100" : "Number of doctor visits, last month"
-- "net_income" : "Net income, in euros"
-- "gross_income" : "Gross income, in euros"
-- "azges1" : "Contractual total working time"
-- "emp_dummy" : "Employed (>400/450 euros per month)"
-- "unemp_dummy" : "Registered as Unemployed(=1)"
-- "migration_dummy" : "No migration background(=1)"
+
+sex_dummy : Male (=1)
+age : Age
+religiosity : Religiosity (1=Not at all to 4=Very)
+PA1000 : General life satisfaction (0=Totally dissatisfied to 10=Completely satisfied)
+PSM0100_dummy : Used social meadia in the last 4 week (=1)
+PSK0200 : Number of close friends
+PG0100 : Number of doctor visits, last month
+net_income : Net income, in euros
+gross_income : Gross income, in euros
+job_hours : Contractual total working time
+emp_dummy : Employed (>400/450 euros per month)
+unemp_dummy : Registered as Unemployed(=1)
+migration_dummy : No migration background(=1)
