@@ -8,7 +8,10 @@ from src.config import BLD
 from src.config import SRC
 
 
-@pytask.mark.depends_on(BLD / "weighted_data")
+@pytask.mark.depends_on({
+        "first": BLD / "weighted_data" / "HHENDDAT_weighted.pickle",
+        "second": BLD / "weighted_data" / "PENDDAT_weighted.pickle",
+    })
 @pytask.mark.produces(SRC / "paper")
 def task_creating_summary_stat_tex(depends_on, produces):
     names = ["PENDDAT", "HHENDDAT"]

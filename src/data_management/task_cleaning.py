@@ -120,12 +120,18 @@ def task_merging(depends_on, produces):
     merged_p.to_pickle(produces["third"])
 
     shutil.rmtree(BLD / "cleaned_data")
-    shutil.rmtree(BLD / "_data")
+    shutil.rmtree(BLD / "aggregated_data")
     # os.remove(BLD / "HHENDDAT_clean.pickle")
     # os.remove(BLD / "PENDDAT_clean.pickle")
     # os.remove(BLD / "hweights_clean.pickle")
     # os.remove(BLD / "pweights_clean.pickle")
 
+
+"""     {
+        "first": BLD / "final_data" / "merged_clean.pickle",
+        "second": BLD / "weighted_data" / "HHENDDAT_weighted.pickle",
+        "third": BLD / "weighted_data" / "PENDDAT_weighted.pickle",
+    } """
 
 """
 def get_names_dataset(path=SRC / "original_data"):
