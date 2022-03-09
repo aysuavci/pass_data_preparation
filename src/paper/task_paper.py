@@ -1,4 +1,4 @@
-""" import shutil
+import shutil
 
 import pytask
 
@@ -7,7 +7,7 @@ from src.config import ROOT
 from src.config import SRC
 
 
-documents = ["research_paper", "research_pres_30min"]
+documents = ["research_paper"]
 
 
 @pytask.mark.latex(
@@ -40,4 +40,3 @@ def task_compile_documents():
 )
 def task_copy_to_root(depends_on, produces):
     shutil.copy(depends_on, produces)
- """
