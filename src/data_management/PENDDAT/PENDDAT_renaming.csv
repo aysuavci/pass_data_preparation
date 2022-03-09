@@ -81,7 +81,7 @@ casmin;Bildung, klassifiziert nach CASMIN, aktual. Version, generiert;educ_casmi
 netges;Akt. Nettoeinkommen insgesamt (ohne Minijobs, inkl. kat. Ang.), gen.;net_income
 brges;Akt. Bruttoeinkommen insgesamt (ohne Minijobs, inkl. kat. Ang.), gen.;gross_income
 azges1;Akt. vertragl. Arb.zeit insgesamt (ohne Minijobs), gen.;job_hours
-etakt;Aktuell erwerbstaetig (>400/450 Euro pro Monat), generiert (ab Welle 2);salary
+etakt;Aktuell erwerbstaetig (>400/450 Euro pro Monat), generiert (ab Welle 2);emp
 alakt;Aktuell arbeitslos gemeldet, generiert (ab Welle 2);unemp
 isei1;International Socio-Economic Index (Basis ISCO88), aktuelle Ewt., gen.;
 isei2;International Socio-Economic Index (Basis ISCO08), aktuelle Ewt., gen.;
