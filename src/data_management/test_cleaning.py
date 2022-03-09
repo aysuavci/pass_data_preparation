@@ -29,13 +29,13 @@ def original_data_h():
 
 @pytest.fixture
 def clean_data_p():
-    df_p_c = pd.read_pickle(BLD / "PENDDAT_clean.pickle")
+    df_p_c = pd.read_pickle(BLD / "weighted_data/PENDDAT_clean.pickle")
     return df_p_c
 
 
 @pytest.fixture
 def clean_data_h():
-    df_h_c = pd.read_pickle(BLD / "HHENDDAT_clean.pickle")
+    df_h_c = pd.read_pickle(BLD / "weighted_data/HHENDDAT_clean.pickle")
     return df_h_c
 
 

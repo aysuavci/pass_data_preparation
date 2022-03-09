@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 import pandas as pd
@@ -7,8 +8,7 @@ from src.config import BLD
 from src.config import SRC
 from src.data_management.cleaning_functions import *
 
-
-@pytask.mark.depends_on(SRC / "original_data")
+""" @pytask.mark.depends_on(SRC / "original_data")
 @pytask.mark.produces(BLD / "renamed_data")
 def task_cleaning(depends_on, produces):
     names = get_names_dataset()
@@ -23,7 +23,35 @@ def task_cleaning(depends_on, produces):
                 df = clean_data(df, i).set_index(["wave", "p_id"]).sort_index()
         else:
             df = clean_data(df, i).set_index(["hh_id", "wave"]).sort_index()
-        df.to_pickle(str(Path(produces)) + f"/{i}_clean.pickle")
+        df.to_pickle(str(Path(produces)) + f"/renamed_data/{i}_clean.pickle")
+
+ """
+
+names = get_names_dataset()
+
+
+@pytask.mark.parametrize(
+    "depends_on, produces,i",
+    [
+        (
+            SRC / f"original_data/{i}_cf_W11.dta",
+            BLD / "renamed_data" / f"{i}_clean.pickle",
+            i,
+        )
+        for i in names
+    ],
+)
+def task_cleaning(depends_on, produces, i):
+
+    df = pd.read_stata(depends_on, convert_categoricals=False)
+    if "pnr" in df.columns:
+        if "hnr" in df.columns:
+            df = clean_data(df, i).set_index(["hh_id", "wave", "p_id"]).sort_index()
+        else:
+            df = clean_data(df, i).set_index(["wave", "p_id"]).sort_index()
+    else:
+        df = clean_data(df, i).set_index(["hh_id", "wave"]).sort_index()
+    df.to_pickle(produces)
 
 
 @pytask.mark.depends_on(BLD / "renamed_data")
@@ -44,7 +72,14 @@ def task_aggregation_and_dummy(depends_on, produces):
 
 
 @pytask.mark.depends_on({"first": BLD / "renamed_data", "second": BLD})
-@pytask.mark.produces({"first": BLD / "final_data", "second": BLD / "weighted_data"})
+@pytask.mark.produces(
+    {
+        "first": BLD / "final_data" / "merged_clean.pickle",
+        "second": BLD / "weighted_data" / "HHENDDAT_weighted.pickle",
+        "third": BLD / "weighted_data" / "PENDDAT_weighted.pickle",
+    }
+)
+# @pytask.mark.produces({"first": BLD / "final_data"/"", "second": BLD / "weighted_data"})
 def task_merging(depends_on, produces):
 
     df_h_c = pd.read_pickle(str(Path(depends_on["second"])) + "/HHENDDAT_clean.pickle")
@@ -63,13 +98,14 @@ def task_merging(depends_on, produces):
         how="outer",
         indicator=True,
     ).set_index(["wave", "hh_id", "p_id"])
-    merged_w.to_pickle(str(Path(produces["first"])) + "/merged_clean.pickle")
-    merged_h.to_pickle(str(Path(produces["second"])) + "/HHENDDAT_clean.pickle")
-    merged_p.to_pickle(str(Path(produces["second"])) + "/PENDDAT_clean.pickle")
+    merged_w.to_pickle(produces["first"])
+    merged_h.to_pickle(produces["second"])
+    merged_p.to_pickle(produces["third"])
+    os.remove(BLD / "PENDDAT_clean.pickle")
+    os.remove(BLD / "HHENDDAT_clean.pickle")
 
 
 """
-
 def get_names_dataset(path=SRC / "original_data"):
     if platform == "win32":
         a = r"\\*"

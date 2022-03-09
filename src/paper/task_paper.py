@@ -1,4 +1,4 @@
-import shutil
+""" import shutil
 
 import pytask
 
@@ -40,3 +40,4 @@ def task_compile_documents():
 )
 def task_copy_to_root(depends_on, produces):
     shutil.copy(depends_on, produces)
+ """

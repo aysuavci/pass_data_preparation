@@ -13,7 +13,7 @@ from src.config import SRC
 def task_creating_summary_stat_tex(depends_on, produces):
     names = ["PENDDAT", "HHENDDAT"]
     for i in names:
-        df = pd.read_pickle(str(Path(depends_on)) + f"/{i}_clean.pickle")
+        df = pd.read_pickle(str(Path(depends_on)) + f"/{i}_weighted.pickle")
 
         with open(SRC / fr"final\{i}_stat.yaml") as stream:
             dict_stat = yaml.safe_load(stream)
