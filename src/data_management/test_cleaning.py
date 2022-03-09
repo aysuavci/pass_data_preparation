@@ -29,13 +29,13 @@ def original_data_h():
 
 @pytest.fixture
 def clean_data_p():
-    df_p_c = pd.read_pickle(BLD / "weighted_data/PENDDAT_clean.pickle")
+    df_p_c = pd.read_pickle(BLD / "weighted_data/PENDDAT_weighted.pickle")
     return df_p_c
 
 
 @pytest.fixture
 def clean_data_h():
-    df_h_c = pd.read_pickle(BLD / "weighted_data/HHENDDAT_clean.pickle")
+    df_h_c = pd.read_pickle(BLD / "weighted_data/HHENDDAT_weighted.pickle")
     return df_h_c
 
 
@@ -63,7 +63,8 @@ def test_reversing(original_data_p, clean_data_p):
         expected = df_p[["pnr", f"{x}"]].groupby(f"{x}").count()
         expected["pnr"] = expected["pnr"].values[::-1]  # reversing the order
         expected = expected.reset_index()
-        actual = df_p_c[["p_id", f"{y}"]].groupby(f"{y}").count().reset_index()
+        actual = df_p_c.reset_index()
+        actual = actual[["p_id", f"{y}"]].groupby(f"{y}").count()
         assert_array_almost_equal(expected["pnr"], actual["p_id"])
 
 
