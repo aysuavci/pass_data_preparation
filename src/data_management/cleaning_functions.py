@@ -20,14 +20,14 @@ def get_names_dataset(path=SRC / "original_data"):
     files = list(glob.glob(str(path) + f"{a}"))
     name = []
     for i in range(len(files)):
-        if any(x.isupper() for x in files[i].split(f"{b}")[-1].split("_")[0]):
-            name.append(files[i].split(f"{b}")[-1].split("_")[0])
-        else:
-            name.append(
-                files[i].split(f"{b}")[-1].split("_")[0]
-                + "_"
-                + files[i].split(f"{b}")[-1].split("_")[1]
-            )
+        # if any(x.isupper() for x in files[i].split(f"{b}")[-1].split("_")[0]):
+        name.append(files[i].split(f"{b}")[-1].split("_")[0])
+    # else:
+    #    name.append(
+    #       files[i].split(f"{b}")[-1].split("_")[0]
+    #      + "_"
+    #     + files[i].split(f"{b}")[-1].split("_")[1]
+    # )
     return name
 
 

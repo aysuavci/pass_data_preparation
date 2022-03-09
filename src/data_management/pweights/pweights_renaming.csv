@@ -1,0 +1,8 @@
+raw_name;labels;new_name
+pnr;Unveraenderliche Personennummer;p_id
+welle;Indikator Befragungswelle;wave
+sample;Stichprobenkennzeichen;
+wqp;Hochrechnungsfaktor Person: Gesamtstichprobe;p_weight
+ppbleib;Reziproke Bleibewahrscheinlichkeit Person (w->w+1);
+psu;Primary Sampling Unit;
+strpsu;Stratifizierung der Primary Sampling Unit;

@@ -9,35 +9,63 @@ from src.data_management.cleaning_functions import *
 
 
 @pytask.mark.depends_on(SRC / "original_data")
-@pytask.mark.produces(BLD)
+@pytask.mark.produces(BLD / "renamed_data")
 def task_cleaning(depends_on, produces):
     names = get_names_dataset()
     for i in names:
         df = pd.read_stata(
             str(Path(depends_on)) + f"/{i}_cf_W11.dta", convert_categoricals=False
         )
-        if "p_id" in df.columns:
-            df = clean_data(df, i).set_index(["hh_id", "wave", "p_id"]).sort_index()
+        if "pnr" in df.columns:
+            if "hnr" in df.columns:
+                df = clean_data(df, i).set_index(["hh_id", "wave", "p_id"]).sort_index()
+            else:
+                df = clean_data(df, i).set_index(["wave", "p_id"]).sort_index()
         else:
             df = clean_data(df, i).set_index(["hh_id", "wave"]).sort_index()
         df.to_pickle(str(Path(produces)) + f"/{i}_clean.pickle")
 
-    df_p = pd.read_pickle(BLD / "PENDDAT_clean.pickle")
-    df_h = pd.read_pickle(BLD / "HHENDDAT_clean.pickle")
-    # reverse all the negatively phrased variables
-    df_p = reverse_code(df_p)
-    # get facet averages for big five
-    df_p = average_big5(df_p)
-    # get facet averages for eri
-    df_p = average_eri(df_p)
-    # get traditional gender role average
-    df_p = average_genrole(df_p)
-    # df_p.to_pickle(produces / "PENDDAT_clean.pickle")
+
+@pytask.mark.depends_on(BLD / "renamed_data")
+@pytask.mark.produces(BLD)
+def task_aggregation_and_dummy(depends_on, produces):
+    df_p = pd.read_pickle(str(Path(depends_on)) + "/PENDDAT_clean.pickle")
+    df_h = pd.read_pickle(str(Path(depends_on)) + "/HHENDDAT_clean.pickle")
+
+    df_p = reverse_code(df_p)  # reverse all the negatively phrased variables
+    df_p = average_big5(df_p)  # get facet averages for big five
+    df_p = average_eri(df_p)  # get facet averages for eri
+    df_p = average_genrole(df_p)  # get traditional gender role average
 
     df_p, df_h = create_dummies(df_p, df_h)
     df_h = create_dummies_depr(df_h)
     df_p.to_pickle(produces / "PENDDAT_clean.pickle")
     df_h.to_pickle(produces / "HHENDDAT_clean.pickle")
+
+
+@pytask.mark.depends_on({"first": BLD / "renamed_data", "second": BLD})
+@pytask.mark.produces({"first": BLD / "final_data", "second": BLD / "weighted_data"})
+def task_merging(depends_on, produces):
+
+    df_h_c = pd.read_pickle(str(Path(depends_on["second"])) + "/HHENDDAT_clean.pickle")
+    df_p_c = pd.read_pickle(str(Path(depends_on["second"])) + "/PENDDAT_clean.pickle")
+    df_h_w = pd.read_pickle(str(Path(depends_on["first"])) + "/hweights_clean.pickle")
+    df_p_w = pd.read_pickle(str(Path(depends_on["first"])) + "/pweights_clean.pickle")
+
+    merged_h = pd.merge(df_h_c, df_h_w, on=["wave", "hh_id"], how="left")
+    merged_p = pd.merge(
+        df_p_c.reset_index(), df_p_w, on=["wave", "p_id"], how="left"
+    ).set_index(["hh_id", "wave", "p_id"])
+    merged_w = pd.merge(
+        merged_p.reset_index(),
+        merged_h,
+        on=["wave", "hh_id", "survey_year", "survey_mon"],
+        how="outer",
+        indicator=True,
+    ).set_index(["wave", "hh_id", "p_id"])
+    merged_w.to_pickle(str(Path(produces["first"])) + "/merged_clean.pickle")
+    merged_h.to_pickle(str(Path(produces["second"])) + "/HHENDDAT_clean.pickle")
+    merged_p.to_pickle(str(Path(produces["second"])) + "/PENDDAT_clean.pickle")
 
 
 """

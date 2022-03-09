@@ -1,0 +1,9 @@
+raw_name;labels;new_name
+hnr;Haushaltsnummer (aktuell);hh_id
+welle;Indikator Befragungswelle;wave
+sample;Stichprobenkennzeichen;
+dw;Designgewicht: Gesamtstichprobe;
+wqhh;Hochrechnungsfaktor Haushalt: Gesamtstichprobe;hh_weight
+hpbleib;Reziproke Bleibewahrscheinlichkeit Haushalt (w->w+1);
+psu;Primary Sampling Unit;
+strpsu;Stratifizierung der Primary Sampling Unit;
