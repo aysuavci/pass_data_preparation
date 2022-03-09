@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 from numpy.testing import assert_array_almost_equal
+from numpy.testing import assert_equal
 
 from src.config import BLD
 from src.config import SRC
@@ -68,6 +69,14 @@ def test_reversing(original_data_p, clean_data_p):
         expected = expected.reset_index()
         actual = df_p_c[["p_id", f"{y}"]].groupby(f"{y}").count().reset_index()
         assert_array_almost_equal(expected["pnr"], actual["p_id"])
+
+
+def test_na(original_data_p, clean_data_p):
+    df_p = original_data_p
+    df_p_c = clean_data_p
+    expected = (df_p < 0).any().any()
+    actual = (df_p_c.fillna(0) >= 0).all().all()
+    assert_equal(actual, expected)
 
 
 """
