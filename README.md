@@ -59,7 +59,8 @@ The script performs the following steps for both household and individual level 
 All the data cleaning steps-from step 1 to 7- are specified in `src/data_management/task_cleaning.py`. 
 The detailed information about all of the steps can be found below.
 
-## Renaming Files
+## Cleaning Steps
+### Renaming Files
 - For each `data_set` there should be a `{data_set}_renaming.csv` in the `src/data_management/`.
 - The renaming files are ";"-separated .csv files and specify the new name for each variable.
 - Since the respective .csv files contains all the variables in that dataset with the new variable names, it might be an useful documentation to view all the variables.
