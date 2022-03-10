@@ -21,6 +21,12 @@ from src.config import BLD
     }
 )
 def task_plotting_graphs(depends_on, produces):
+    """This task produces the plots which are used in the research paper.
+    The plots are number of observation per wave,
+    age distribution, gender distribution and
+    gender role attitude by gender and age. It uses the final weighted
+     datasets(PENDDAT_weighted,HHENDDAT_weighted).
+    """
     df_p_w = pd.read_pickle(depends_on["first"])
     df_h_w = pd.read_pickle(depends_on["second"])
     # number of observation per wave

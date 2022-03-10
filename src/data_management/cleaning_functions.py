@@ -10,7 +10,14 @@ from src.config import SRC
 
 
 def get_names_dataset(path=SRC / "original_data"):
-    if platform == "win32":
+    """This function extract the name of the data set in "origina_data" folder
+    Args:
+        path (str, path object): The path to the folder where original data is stored.
+        Default value is SRC/"original_data".
+    Returns:
+        name (list): the list containing the names of dataset.
+    """
+    if platform == "win32":  # here differantia between operating system
         a = r"\*"
         b = "\\"
     elif platform == "darwin":
@@ -20,47 +27,31 @@ def get_names_dataset(path=SRC / "original_data"):
     files = list(glob.glob(str(path) + f"{a}"))
     name = []
     for i in range(len(files)):
-        # if any(x.isupper() for x in files[i].split(f"{b}")[-1].split("_")[0]):
         name.append(files[i].split(f"{b}")[-1].split("_")[0])
-    # else:
-    #    name.append(
-    #       files[i].split(f"{b}")[-1].split("_")[0]
-    #      + "_"
-    #     + files[i].split(f"{b}")[-1].split("_")[1]
-    # )
     return name
 
 
-def p_renaming_columns(df):
-    new_names = pd.read_csv(
-        SRC / "data_management/PENDDAT/penddat_renaming.csv", sep=";"
-    )["new_name"]
-    renaming_dict = dict(zip(df.columns, new_names))
-    renaming_dict = {
-        k: v for k, v in renaming_dict.items() if pd.notna(v)
-    }  # Deleting NA values
-    return df.rename(columns=renaming_dict)
-
-
-def p_replacing_negative(data_set, negatives=None):
-    if negatives is None:
-        negatives = list(range(-1, -11, -1))
-    for i in negatives:
-        data_set[data_set == i] = np.nan
-    return data_set
-
-
 def clean_data(df, i, negatives=None):
+    """This function does the bacis cleaning. It renames the columns of the dataset based
+        on the csv file provided and replaces the negative values in the dataset with NaN.
+    Args:
+        df (pandas.DataFrame): The dataframe to be cleaned.
+        i (str): The name of the dataset.
+        negatives(list) : List of negative integars which is replaced by NaN. Default values are
+        all negative integars from -1 to -11.
+    Returns:
+        df (pandas.DataFrame): The dataframe with new column names and without negative values.
+    """
     if negatives is None:
         negatives = list(range(-1, -11, -1))
 
     new_names = pd.read_csv(SRC / f"data_management/{i}/{i}_renaming.csv", sep=";")[
         "new_name"
-    ]
+    ]  # reading the new column names form csv file
     renaming_dict = dict(zip(df.columns, new_names))
     renaming_dict = {
         k: v for k, v in renaming_dict.items() if pd.notna(v)
-    }  # Deleting NA values
+    }  # Deleting NA values (column names whose new name is not given in the csv file)
     df = df.rename(columns=renaming_dict)
     for i in negatives:
         df[df == i] = np.nan
@@ -68,6 +59,14 @@ def clean_data(df, i, negatives=None):
 
 
 def reverse_code(df):
+    """This function reversed the values of the pre-determined variables.
+    Those values are determined in csv file
+    by adding "_neg" to their new name
+    Args:
+        df (pandas.DataFrame): The dataframe whose variables is going to be reversed
+    Returns:
+        df (pandas.DataFrame): The dataframe with new reversed variables.
+    """
     for i in df:
         if (f"{i}" in df.filter(regex="_neg")) is True:
             new_column_name = i.replace("_neg", "")
@@ -104,8 +103,22 @@ def average_genrole(df):
 
 
 def create_dummies(df_p, df_h, dummies_p=None, dummies_h=None):
-    # df_p = pd.read_pickle(BLD / "PENDDAT_clean.pickle")
-    # df_h = pd.read_pickle(BLD / "HHENDDAT_clean.pickle")
+    """This function creates dummies for the variables provided in a .yaml file.
+    It preserves the original values and
+    adds another column to dataset with name {variable_name}_dummy.
+    This function creates dummies for variable which has
+    two possible answer (e.g. Yes=1,No=2).This variables are coded as "others" in .yaml file.
+    Args:
+        df_p (pandas.DataFrame): Personal dataset(PENDDAT) to create dummies
+        df_h (pandas.DataFrame): Household dataset(HHENDDAT) to create dummies
+        dummies_p (str,path object) : Path to the .yaml file containing the list of variables
+        from Personal dataset (PENDDAT) whose dummies are going to be created
+        dummies_h (str,path object) : Path to the .yaml file containing the list of variables
+        from Households dataset (HHENDDAT) whose dummies are going to be created
+    Returns:
+        df_p (pandas.DataFrame): Personal dataset(PENDDAT) with dummy variables
+        df_h (pandas.DataFrame): Household dataset(HHENDDAT) with dummy variables
+    """
     if dummies_p is None:
         dummies_p = Path(SRC / "data_management/dummies/PENDDAT_dummies.yaml")
     if dummies_h is None:
@@ -158,6 +171,19 @@ def create_dummies(df_p, df_h, dummies_p=None, dummies_h=None):
 
 
 def create_dummies_depr(df_h, dummies_h=None):
+    """This function creates dummies for the deprivation variables provided in a .yaml file.
+    It preserves the original values and
+    adds another column to dataset with name {variable_name}_dummy.
+    This variables are coded as "deprivation" in .yaml file.
+    Only household dataset contains deprivation variables.
+    Args:
+        df_h (pandas.DataFrame): Household dataset(HHENDDAT) to create dummies
+        dummies_h (str,path object or file-like object) : Path to the .yaml file
+        containing the list of deprivation variables
+        from Households dataset (HHENDDAT) whose dummies are going to be created
+    Returns:
+        df_h (pandas.DataFrame): Household dataset(HHENDDAT) with dummy variables
+    """
     if dummies_h is None:
         dummies_h = Path(SRC / "data_management/dummies/HHENDDAT_dummies.yaml")
     with open(dummies_h) as stream:

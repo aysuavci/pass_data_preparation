@@ -19,7 +19,10 @@ from src.config import SRC
     }
 )
 def task_creating_summary_stat_tex(depends_on, produces):
-
+    """This task creates summary statistics table in latex form
+    for households and personal dataset. It loads the tables
+    into "BLD / paper" folder
+    """
     df_h = pd.read_pickle(depends_on["first"])
     df_p = pd.read_pickle(depends_on["second"])
     with open(SRC / "final" / "PENDDAT_stat.yaml") as stream:

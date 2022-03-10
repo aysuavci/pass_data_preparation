@@ -40,6 +40,8 @@ def clean_data_h():
 
 
 def test_reversing(original_data_p, clean_data_p):
+    """This function test whether the variables are reversed correctly
+    by comparing the number of answers"""
     df_p = original_data_p
     df_p[
         df_p < 0
@@ -69,6 +71,7 @@ def test_reversing(original_data_p, clean_data_p):
 
 
 def test_na(original_data_p, clean_data_p):
+    """This function test whether there is still NaN values after replacing them"""
     df_p = original_data_p
     df_p_c = clean_data_p
     expected = (df_p < 0).any().any()
