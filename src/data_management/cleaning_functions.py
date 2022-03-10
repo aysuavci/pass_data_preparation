@@ -94,6 +94,15 @@ def average_big5(df):
 
 
 def average_eri(df):
+    """This function aggregates the variables in the Effort-Reward Module
+    according to the PASS Scales Manual. It averages the facets after
+    droping the negatively phrased variables.
+     Args:
+        df (pandas.DataFrame): The dataframe which has Effort-Reward Module
+        variables (PENDDAT)
+    Returns:
+        df (pandas.DataFrame): The dataframe with new aggreagted
+         Effort-Reward Module variables."""
     facets_eri = ["effort", "reward"]
     for i in facets_eri:
         df[f"eri_{i}"] = (
