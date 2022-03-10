@@ -76,6 +76,13 @@ def reverse_code(df):
 
 
 def average_big5(df):
+    """This function aggregates the variable for big5 classification
+     by taking their mean for each observation
+     Args:
+        df (pandas.DataFrame): The dataframe which has big5 variables (PENDDAT)
+    Returns:
+        df (pandas.DataFrame): The dataframe with new aggreagted
+         big5 variables."""
     facets_b5 = ["ext", "agree", "consc", "neu", "open"]
     for i in facets_b5:
         df[f"b5_{i}"] = (
@@ -98,6 +105,14 @@ def average_eri(df):
 
 
 def average_genrole(df):
+    """This function aggregates the variable for traditional gender role
+     by taking their mean for each observation
+     Args:
+        df (pandas.DataFrame): The dataframe which has traditional
+         gender role variables (PENDDAT)
+    Returns:
+        df (pandas.DataFrame): The dataframe with new aggreagted
+         traditional gender role variable."""
     df["genrole_traditional"] = df.filter(regex="traditional").mean(axis=1)
     return df
 
