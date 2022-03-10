@@ -19,9 +19,9 @@ def task_creating_summary_stat_tex(depends_on, produces):
 
     df_h = pd.read_pickle(depends_on["first"])
     df_p = pd.read_pickle(depends_on["second"])
-    with open(SRC / r"final\PENDDAT_stat.yaml") as stream:
+    with open(SRC / "final"/ "PENDDAT_stat.yaml") as stream:
         dict_stat_p = yaml.safe_load(stream)
-    with open(SRC / r"final\HHENDDAT_stat.yaml") as stream:
+    with open(SRC / "final"/"HHENDDAT_stat.yaml") as stream:
         dict_stat_h = yaml.safe_load(stream)
     data = []
     for x, _y in dict_stat_p.items():
