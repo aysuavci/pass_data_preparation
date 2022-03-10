@@ -1,5 +1,3 @@
-import shutil
-
 import pandas as pd
 import pytask
 
@@ -119,12 +117,12 @@ def task_merging(depends_on, produces):
     merged_h.to_pickle(produces["second"])
     merged_p.to_pickle(produces["third"])
 
-    shutil.rmtree(BLD / "cleaned_data")
-    shutil.rmtree(BLD / "aggregated_data")
-    # os.remove(BLD / "HHENDDAT_clean.pickle")
-    # os.remove(BLD / "PENDDAT_clean.pickle")
-    # os.remove(BLD / "hweights_clean.pickle")
-    # os.remove(BLD / "pweights_clean.pickle")
+    # os.remove(BLD / "cleaned_data" / "HHENDDAT_clean.pickle")
+    # os.remove(BLD / "cleaned_data" / "PENDDAT_clean.pickle")
+    # os.remove(BLD / "cleaned_data" / "hweights_clean.pickle")
+    # os.remove(BLD / "cleaned_data" / "pweights_clean.pickle")
+    # os.remove(BLD / "aggregated_data" / "PENDDAT_aggregated.pickle")
+    # os.remove(BLD / "aggregated_data" / "HHENDDAT_aggregated.pickle")
 
 
 """     {
