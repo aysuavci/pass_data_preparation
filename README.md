@@ -40,7 +40,7 @@ The repository only contains scripts. The raw files need to be provided manually
 
 See [https://econ-project-templates.readthedocs.io/en/stable/](https://econ-project-templates.readthedocs.io/en/stable/) for more information on the template that is used.
 
---- HOW TO GIVE CREDIT TO SOEP REPO? ---
+This repository is inspired by the SOEP data preparation repository of Institute of Labor Economics (IZA).
 
 [The LISS data management documentation](https://liss-data-management-documentation.readthedocs.io/en/latest/) that was created with similar structure might be also helful.
 
@@ -48,22 +48,21 @@ See [https://econ-project-templates.readthedocs.io/en/stable/](https://econ-proj
 
 The script performs the following steps for both household and individual level datasets.
 1. Collect the respective .dta file.
-2. Rename all variables according to the respective renaming csv file.
+2. Rename all variables according to the respective renaming .csv file.
 3. Perform basic data cleaning.
 4. Reverse coding variables and aggregation.
 5. Create dummies that might come in useful.
-6. Save the final data sets as .pickle.
-7. Perform some tests for used functions.
-8. Report some summary statistics.
+6. Merge the datasets.
+7. Save the final data sets as .pickle.
+9. Report some summary statistics and create reseach paper in pdf format.
 
-All the data cleaning steps-from step 1 to 6- are specified in `src/data_management/task_cleaning.py`.
+All the data cleaning steps-from step 1 to 7- are specified in `src/data_management/task_cleaning.py`. 
+The detailed information about all of the steps can be found below.
 
 ## Renaming Files
-
-- Can be found ...--TO BE ADDED--
+- For each `data_set` there should be a `data_set_renaming.csv` in the `src/data_management/`.
 - The renaming files are ";"-separated .csv files and specify the new name for each variable.
--- TO BE ADDED --
-- Since the respective .csv files contains all the variables in that data set with the new variable names, it might be an useful documentation to view all the variables.
+- Since the respective .csv files contains all the variables in that dataset with the new variable names, it might be an useful documentation to view all the variables.
 - The general information about the original naming of the datasets can be found in Table 21 of the PASS User Guide which can be dowloaded via the following link: [https://doku.iab.de/fdz/pass/FDZ-Datenreporte_PASS_EN.zip].
 
 Some standardizations we use in renaming:
