@@ -20,7 +20,7 @@ Aysu Avcı and Melih Damar
 
 ## Setup
 - The dataset PASS-CF is accessable after filling the form in the following link :[https://fdz.iab.de/en/campus-files/pass_cf/registrierungsformular-zum-download-des-campus-files-pass-0617-v1.aspx]
-- The longitudinal PASS-CF datasets, `HHENDDAT_cf_W11.dta` and `PENDDAT_cf_W11.dta` are using in this project. Therefore, please add these data files into the folder `original-data/` in your local repository on your computer.
+- The longitudinal PASS-CF datasets, `HHENDDAT_cf_W11.dta`, `PENDDAT_cf_W11.dta`, `hweights_cf_W11.dta` and  `pweights_cf_W11.dta ` are using in this project. Therefore, please add these data files into the folder `src/original-data/` in your local repository on your computer.
 - Please make sure you have your conda environment up to date. The basic requirements can be found in the `environment.yml` file.
 - It is recommended also to activate project environment by running `conda activate pass_data_preparation`.
 
@@ -30,8 +30,11 @@ Aysu Avcı and Melih Damar
 This resource can be helpful to get an understanding of pytask: [https://pytask-dev.readthedocs.io/en/latest/index.html](https://pytask-dev.readthedocs.io/en/latest/index.html)
 
 ## Structure
-
---- TO BE ADDED ---
+- `src/original_data/` should contain the four dataset that are added to the folder by the user. For each `data_set` there should be a `data_set_renaming.csv` in the `src/data_management/`.
+- `src/data_management/` contains all the files related to cleaning process. The functions used for cleaning steps can be found in the file `cleaning_functions.py`. As mentioned above this file also contains the reanaming documents under each `data_set/` folder. The creation of dummy variables requires a list of variables that will be used in the `create_dummies()` function, therefore in `dummies/` each `data_set` that requires such operation should have a `data_set_dummies.yaml`. The tests written for cleaning functions are in the `test_cleaning.py` file. And finally, the cleaning task itself can be found in `task_cleaning.py` which creates the new datasets in three steps. 
+- After running the pytask the final data sets `PENDDAT_aggregated.pickle` and `HHENDDAT_aggregated.pickle` are created under `bld/`, as well as a merged alternative of the datasets `merge_clean.pickle`. 
+- `src/final/` contains `task_stat.py`, the task needed to form summary statistics.
+- Other tasks include `task_documentation.py` and `task_paper.py` which forms the `research_project.pdf` based on `research_paper.tex` and `data_set_sum_stat.tex`.
 
 The repository only contains scripts. The raw files need to be provided manually in the `src/original-data` folder and all output files need to be produced by running pytask and can then be found under `bld`.
 
