@@ -71,7 +71,7 @@ Some standardizations we use in renaming:
 2. A common naming for the variables in the same module (e.g. `big_5`).
 3. All the negatively phrased variables* ends with `_n`.
 
-* Refering to the items in a scale that differ in direction from most other items in that scale.
+*Refering to the items in a scale that differ in direction from most other items in that scale.
 ### Basic Data Cleaning
 
 - As the basic step for cleaning we convert all the values coded as negative to NaN values (e.g. “I don’t know -> np.nan”).
