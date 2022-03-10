@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import pandas as pd
 import pytask
 import yaml
@@ -14,14 +12,19 @@ from src.config import SRC
         "second": BLD / "weighted_data" / "PENDDAT_weighted.pickle",
     }
 )
-@pytask.mark.produces(SRC / "paper")
+@pytask.mark.produces(
+    {
+        "first": BLD / "paper" / "HHENDDAT_stat.tex",
+        "second": BLD / "paper" / "PENDDAT_stat.tex",
+    }
+)
 def task_creating_summary_stat_tex(depends_on, produces):
 
     df_h = pd.read_pickle(depends_on["first"])
     df_p = pd.read_pickle(depends_on["second"])
-    with open(SRC / "final"/ "PENDDAT_stat.yaml") as stream:
+    with open(SRC / "final" / "PENDDAT_stat.yaml") as stream:
         dict_stat_p = yaml.safe_load(stream)
-    with open(SRC / "final"/"HHENDDAT_stat.yaml") as stream:
+    with open(SRC / "final" / "HHENDDAT_stat.yaml") as stream:
         dict_stat_h = yaml.safe_load(stream)
     data = []
     for x, _y in dict_stat_p.items():
@@ -33,7 +36,7 @@ def task_creating_summary_stat_tex(depends_on, produces):
             .rename(columns={"50%": "median"})
             .round(2)
         )
-    df_p_stat.to_latex(str(Path(produces)) + "/PENDDAT_sum_stat.tex")
+    df_p_stat.to_latex(produces["second"])
     data = []
     for x, _y in dict_stat_h.items():
         data.append(df_h.reset_index()[f"{x}"])
@@ -44,7 +47,7 @@ def task_creating_summary_stat_tex(depends_on, produces):
             .rename(columns={"50%": "median"})
             .round(2)
         )
-    df_h_stat.to_latex(str(Path(produces)) + "/HHENDDAT_sum_stat.tex")
+    df_h_stat.to_latex(produces["first"])
 
 
 r"""     names = ["PENDDAT", "HHENDDAT"]
